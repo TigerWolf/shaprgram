@@ -1,31 +1,80 @@
-<h1>Photo Data Tool</h1>
+<div class="welcome">
+  <main class="bs-docs-masthead" id="content" role="main">
+    <div class="container">
+      <h1>Shaprgram</h1>
 
-<p>We love open data, because it lets you do neat things. The problem with open data is how much effort is required to make it useful.</p>
+      <div class="lead">We love open data, because it lets you do neat things.</div>
+      <p>But often it's too hard to enrich and maintain data. We're here to help.</p>
+  
+    </div>
+  </main>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" style="text-align:center">
+        <h3>Add your data</h3>
+        <p>Upload a shp or csv file</p>
+        <p>Describe your data</p>
+      </div>
+      <div class="col-md-4" style="text-align:center">
+        <h3>Ask for Photos</h3>
+        <p>Share a link with participants</p>
+        <p>Get crowdsourced photos</p>
+      </div>
+      <div class="col-md-4" style="text-align:center">
+        <h3 style="text-align:center">Download results</h3>
+        <p>One easy zip</p>
+        <p>Easy to republish</p>
 
-<p>This application is aimed at government data producers who may not have the full resources of a geospatial team at their beck and call, who need to crowdsource information about their assets; and anyone that can benefit from visual imagery to supplement raw data.</p>
+      </div>
+    </div>
+  </div>
 
-<h2>Use cases</h2>
+  <div class="container well" style="margin-top: 50px">
+    <h4 class="col-md-offset-2">New Project</h4>
+    <form method="get" action="/projects/1/list">
+      <div class="col-md-3 col-md-offset-2">Name: <input type="text" name="name" placeholder="My great project" /></div>
+      <div class="col-md-3">URL: <input type="url" name="url" title="Paste a URL from data.gov.au or similar directly to your resource" /> <small class="pull-right">(csv w/coordinates or shp)</small></div>
+      <div class="col-md-3"><input type="submit" class="btn btn-primary" value="Begin" /></div>
+    </form>
+  </div>
+
+  <div class="container" style="margin-top: 50px">
+
+    <h2>Who's this for</h2>
+    <p>This application is aimed at government data producers who may not have the full resources of a geospatial team at their beck and call, who need to crowdsource information about their assets; and anyone that can benefit from visual imagery to supplement raw data.</p>
+
+  </div>
 
 
-<h3>Inventory</h3>
-<p>Adelaide City Council produces a number of data sets regarding picnic sites, which is published on their website and as open data. Unfortunately no one was able to snap a few photos at the time, and google streetview doesn't reach these places.</p>
 
-<p>Using this tool, anyone with a shapefile or CSV can put up a list of assets that need photographs, and download a simple .zip file with an enhanced dataset.</p>
+  <div class="container" style="margin-top: 50px">
+    
+    <h2>Use cases</h2>
 
-<h3>Asset tracking</h3>
-<p>Just spent a few hard earned rate payer dollars on nice new benches? Use this tool to capture a visual representation of the asset at the time of installation; and during routine tasks - letting you see how your assets survive in the wild, when they need repair or more.</p>
+    <div class="row">
+    <div class="col-md-5" style="text-align: justify">
+      <h3>Inventory</h3>
+      <p>Adelaide City Council produces a number of data sets regarding picnic sites, which is published on their website and as open data. Unfortunately no one was able to snap a few photos at the time, and google streetview doesn't reach these places.</p>
 
-<h3>Much more</h3>
+      <p>Using this tool, anyone with a shapefile or CSV can put up a list of assets that need photographs, and download a simple .zip file with an enhanced dataset.</p>
+    </div>
 
-<ul>
-  <li>Parking spaces & restricted parking - all parking inspectors carry cameras, making it trivial to document your city</li>
-  <li>Signs - need to capture the signed speed limits across multiple authorities? Use this tool to complete your dataset (@@link to geelong city council efforts)</li>
-  <li>Tree health - Let members of your community tell you when a tree is ill, growing too much or more - find out *before* it becomes a costly issue to rectify.</li>
-</ul>
+    <div class="col-md-5 col-md-offset-1" style="text-align: justify">
+      <h3>Asset tracking</h3>
+      <p>Just spent a few hard earned rate payer dollars on nice new benches? Use this tool to capture a visual representation of the asset at the time of installation; and during routine tasks - letting you see how your assets survive in the wild, when they need repair or more.</p>
+    </div>
+    </div>
 
-<h2>New Project</h2>
-<form method="get" action="/projects/1/list">
-  <p>Name: <input type="text" name="name" placeholder="My great project" /></p>
-  <p>Data: <input type="url" name="url" title="Paste a URL from data.gov.au or similar directly to your resource" /> (csv, shp)</p>
-  <input type="submit" value="Begin" />
-</form>
+    <div class="well" style="margin-top: 50px">
+    <h4>Much more</h4>
+      <ul>
+        <li>Parking spaces & restricted parking - all parking inspectors carry cameras, making it trivial to document your city</li>
+        <li>Signs - need to capture the signed speed limits across multiple authorities? Use this tool to complete your dataset (@@link to geelong city council efforts)</li>
+        <li>Tree health - Let members of your community tell you when a tree is ill, growing too much or more - find out *before* it becomes a costly issue to rectify.</li>
+      </ul>
+    </div>
+
+
+
+  </div>
+</div>
