@@ -16,14 +16,14 @@ class ProjectsController < ApplicationController
     project = Project.new(name: params[:name], url: params[:url])
 
     # TODO Guess type and load a CSVFileReader if appropriate.
+
+
     # TODO Refactor to an iterator so it's a lot easier to deal with a stream
-
-
     #
     # Either we do:
     #
     # reader = ShapefileReader.new
-    # records = reader.parse(temp_file.path)
+    # records = reader.parse(temp_file.path) # gunzip?
 
     # record = records.first
     #
