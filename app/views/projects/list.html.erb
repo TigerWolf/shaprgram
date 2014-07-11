@@ -1,47 +1,100 @@
-<div class="projects row-fluid">
-  <div class="project-items">
-    <table class="table">
-      <thead>
-        <% @project.records.first.data.keys.each do |heading| %>
-          <th><%= heading.to_s.titleize %></th>
-        <% end %>
-      </thead>
+<div class="projects">
+  <div class="row">
+    <div class="project-items col-md-8" style="overflow-y: scroll; max-height: 400px">
+      <table class="table">
+        <thead>
+          <% @project.records.first.data.keys.each do |heading| %>
+            <th><%= heading.to_s.titleize %></th>
+          <% end %>
+        </thead>
 
-      <tbody>
-        <% @project.records.each do |record| %>
-          <tr>
-            <% record.data.keys.each do |heading| %>
-              <% if heading == :the_geom %>
-                <td><a href="#">View</a></td>
-              <% elsif heading == :image_url %>
-                <% if !record.data.has_key?(heading) %>
-                  <td>
-                    <form>
-                      <input type="file" title="TODO: http://jsfiddle.net/fyneworks/2LLws/ ?" />
-                      <input type="submit" />
-                    </form>
-                  </td>
+        <tbody>
+          <% @project.records.each do |record| %>
+            <tr>
+              <% record.data.keys.each do |heading| %>
+                <% if heading == :the_geom %>
+                  <td><%= link_to "View", '#', :data => record.data.merge(coords: "-34.9290,138.6010") %></td>
+                <% elsif heading == :image_url %>
+                  <% if !record.data[heading] %>
+                    <td>
+                      <form>
+                        <input type="file" title="TODO: http://jsfiddle.net/fyneworks/2LLws/ ?" />
+                        <input type="submit" />
+                      </form>
+                    </td>
+                  <% else %>
+                    <td>
+                      <a href="<%= record.data[heading] %>" target="preview">
+                        <img class="thumbnail" src="<%= record.data[heading] %>" alt="preview" />
+                      </a>
+                    </td>
+                  <% end %>
                 <% else %>
-                  <td>
-                    <a href="#">
-                      <img class="thumbnail" src="<%= record.data[heading] %>" alt="preview" />
-                    </a>
-                  </td>
+                  <td><%= record.data[heading] %></td>
                 <% end %>
-              <% else %>
-                <td><%= record.data[heading] %></td>
-              <% end %>
-            <% end %>    
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+              <% end %>    
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="project-preview col-md-4">
+      <!--<img id="preview"  src="" alt="" />-->
+      <iframe id="preview" name="preview" title="Go make me a decent widget or somesuch"></iframe>
+    
+      <div id="map" />
+    </div>
   </div>
 
-  <div class="project-preview">
-    <img id="preview"  src="" alt="" />
-  
-    <div id="map" />
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <h4> Licence </h4>
+      <select>
+        <option>CC-BY 3.0</option>
+      </select>
+      <br />
+      <small>Choose a photo license</small>
+
+      <div class="alert alert-danger" title="TODO">
+        Put this in the previous screen?
+      </div>
+    </div>
+
+
+
+    <div class="col-md-2 col-md-offset-1">
+      <h4> Download </h4>
+      <a class="btn btn-primary">
+        <i class="icon-zip" />
+        .zip
+      </a>
+      <br />
+      <small>Contains shape files, links to images, etc</small>
+    </div>
+
   </div>
-  
 </div>
+<script type="text/javascript">
+var map = L.map('map');
+
+
+$('a[data-coords]').click(function() {
+  var coords = $(this).data('coords').split(",");
+  map.setView(coords, 17);
+
+  // TODO Handlebars?
+  var template = '';
+  
+  for (key in $(this).data()) {
+    template += String(key) + ": " + String($(this).data(key)) + "<br />";
+  }
+  L.marker(coords).addTo(map)
+      .bindPopup(template);
+});
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+</script>
