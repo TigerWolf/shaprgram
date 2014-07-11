@@ -1,0 +1,21 @@
+production:
+  adapter: postgis
+  database: photo-data-tool_production
+  host: localhost
+  username: postgres
+  encoding: utf-8
+
+development:
+  adapter: postgis
+  database: photo-data-tool
+  host: localhost
+  username: postgres
+  encoding: utf-8
+
+test:
+  adapter: postgis
+  database: photo-data-tool_production
+  username: postgres
+  host: localhost
+  encoding: utf-8
+
