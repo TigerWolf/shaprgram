@@ -12,6 +12,7 @@ gem 'rgeo-shapefile'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'bootstrap-sass'
+gem 'leaflet-rails'
 
 group :development, :test do
   gem 'pry'
