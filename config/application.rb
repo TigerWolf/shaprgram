@@ -21,3 +21,7 @@ module Shaprgram
     # config.i18n.default_locale = :de
   end
 end
+
+Rails.application.configure do
+  config.autoload_paths << Rails.root.join('lib')
+end
