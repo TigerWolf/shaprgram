@@ -22,12 +22,6 @@
                         <input type="submit" />
                       </form>
                     </td>
-                  <% else %>
-                    <td>
-                      <a href="<%= record.data[heading] %>" target="preview">
-                        <img class="thumbnail" src="<%= record.data[heading] %>" alt="preview" />
-                      </a>
-                    </td>
                   <% end %>
                 <% else %>
                   <td><%= record.data[heading] %></td>
@@ -45,8 +39,7 @@
         Does this work better as a sidebar or under the list? Hard to tell on my screen
       </div>
 
-      <!--<img id="preview"  src="" alt="" />-->
-      <iframe id="preview" name="preview" title="Go make me a decent widget or somesuch"></iframe>
+      <img id="preview"  src="" alt="" />
     
       <div id="map" />
 
@@ -91,25 +84,43 @@
   </div>
 </div>
 <script type="text/javascript">
-var map = L.map('map');
+var listApplication = {
+  init: function () {
+    var map = listApplication.map;
+    $('a[data-coords]').click(listApplication.actions.view);
 
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  },
+  map: L.map('map'),
+  marker: null,
+  actions: {
+    view: function(e) {
+      var map = listApplication.map;
+      var coords = $(e.target).data('coords').split(",");
+      
+      map.setView(coords, 17);
 
-$('a[data-coords]').click(function() {
-  var coords = $(this).data('coords').split(",");
-  map.setView(coords, 17);
+      if (listApplication.marker) {
+        map.removeLayer(listApplication.marker);
+      }
+      // TODO Handlebars?
+      var template = '';
+      
+      for (key in $(e.target).data()) {
+        template += String(key) + ": " + String($(e.target).data(key)) + "<br />";
+      }
+      listApplication.marker = L.marker(coords).addTo(map)
+          .bindPopup(template);
 
-  // TODO Handlebars?
-  var template = '';
-  
-  for (key in $(this).data()) {
-    template += String(key) + ": " + String($(this).data(key)) + "<br />";
+      $('#preview').attr('src', $(e.target).data('imageUrl'));
+    }
   }
-  L.marker(coords).addTo(map)
-      .bindPopup(template);
-});
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+};
+
+
+listApplication.init();
 
 </script>
