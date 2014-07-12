@@ -16,7 +16,7 @@ namespace :fake do
     reader = ShapefileReader.new(logger)
 
     # p.url = 'http://data.gov.au/storage/f/2013-09-09T03%3A26%3A41.342Z/bbq.zip'
-    project.srid = 4283 # GDA94, not WSG_84
+    project.srid = 28356 # GDA94, not WSG_84
     project.format = "shp"
     project.metadata = {
       name_column: "ASSET_NUMB"

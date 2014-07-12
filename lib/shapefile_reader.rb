@@ -29,7 +29,7 @@ wgs84_wkt = <<WKT
     AUTHORITY["EPSG","4326"]]
 WKT
 
-    @factory ||= wgs84_factory = RGeo::Geographic.spherical_factory(srid: 4326, proj4:wgs84_proj4, coord_sys: wgs84_wkt)
+    @factory ||= wgs84_factory = RGeo::Geographic.spherical_factory(srid: 4326)
   end
 
   def unzippify!(path)
@@ -46,16 +46,25 @@ WKT
   end
 
   def parse(path, project)
-    factory = RGeo::Geographic.spherical_factory(srid: project.srid)
+    srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
+    factory = RGeo::Geos.factory(srs_database: srs_database, srid: project.srid)
+    if srs_database.get(project.srid).proj4.nil?
+       raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
+    end
+
     RGeo::Shapefile::Reader.open(path, factory: factory) do |file|
       file.each do |record|
+        cartesian_preferred_factory = Project.rgeo_factory_for_column(:point)
+
+        cartesian_cast = RGeo::Feature.cast(record.geometry, cartesian_preferred_factory, :project)
+
         item =  Item.new({
           name: record.attributes[project.metadata["name_column"]],
-          point: RGeo::Feature.cast(record.geometry, factory: wgs84_factory, project: true), 
+          point: cartesian_cast, 
           import_data: record.attributes
         })
-        project.items << item
 
+        project.items << item
         logger.info("Imported #{item.name} at #{item.point}")
       end
     end
