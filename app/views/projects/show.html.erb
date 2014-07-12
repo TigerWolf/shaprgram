@@ -9,7 +9,7 @@
     <%= simple_form_for(DataImport.new(project_id: @project.id)) do |f| %>
       <div class="control-group all-33">
         <%= f.input :project_id, as: :hidden %>
-        <%= f.input :data_source_uri, label: 'Data Source URI' %>
+        <%= f.input :data_source_uri, label: 'Data Source URI', placeholder: 'http://...' %>
         <small class="pull-right">(csv w/coordinates, kml or shp)</small>
       </div>
       <div class="control-group all-33">

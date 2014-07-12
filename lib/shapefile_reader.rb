@@ -56,19 +56,23 @@ WKT
     # end
 
     RGeo::Shapefile::Reader.open(path, factory: factory) do |file|
+
+      items = []
       file.each do |record|
 
         cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
 
         item =  Item.new({
           name:  '1',#record.attributes[project.metadata["name_column"]],
-          point: cartesian_cast, 
-          import_data: record.attributes
+          point:       cartesian_cast,
+          import_data: record.attributes,
+          project_id:  project.id
         })
-
-        project.items << item
-        logger.info("Imported #{item.name} at #{item.point}")
+        items << item
+        # logger.info("Imported #{item.name} at #{item.point}")
       end
+
+      Item.import items
     end
 
     # Success - we can ditch the working data

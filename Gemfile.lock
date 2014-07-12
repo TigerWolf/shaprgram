@@ -34,6 +34,8 @@ GEM
       activemodel (= 4.1.4)
       activesupport (= 4.1.4)
       arel (~> 5.0.0)
+    activerecord-import (0.5.0)
+      activerecord (>= 3.0)
     activerecord-postgis-adapter (2.1.1)
       activerecord (~> 4.0)
       rgeo-activerecord (~> 1.0)
@@ -214,6 +216,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   activerecord-postgis-adapter
   better_errors
   binding_of_caller

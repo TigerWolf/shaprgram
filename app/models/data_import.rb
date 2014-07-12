@@ -5,6 +5,11 @@ class DataImport < ActiveRecord::Base
 
   before_save :import_data
 
+  validate :project_id, :data_source_uri, presence: true
+
+  # stop accidental re-importing of multiple datasets
+  validates_uniqueness_of :data_source_uri, scope: :project_id
+
   # TODO: Sidekiq this!
   def import_data
     require 'net/http'
@@ -37,7 +42,6 @@ class DataImport < ActiveRecord::Base
       path = reader.unzippify!(temp_file.path)
       reader.parse(path, project)
     end
-
   end
 
 end

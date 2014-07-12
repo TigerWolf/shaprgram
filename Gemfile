@@ -25,6 +25,7 @@ gem 'georuby', git: 'git://github.com/chris-teague/georuby.git'
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'delayed_paperclip'
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'pry-rails'
