@@ -14,7 +14,7 @@ development:
 
 test:
   adapter: postgis
-  database: photo-data-tool_production
+  database: photo-data-tool_test
   username: postgres
   host: localhost
   encoding: utf-8
