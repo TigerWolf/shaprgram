@@ -31,4 +31,10 @@ $(document).ready(function(){
       }
     }
   });
+
+
+  $( "#items-table" ).on( "click",".view-image", function(e) {
+    e.preventDefault();
+    console.log(e.data());
+  });
 });

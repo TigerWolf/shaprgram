@@ -1,7 +1,5 @@
-<% current_item ||= nil %>
 
-<br>
-<table class="ink-table items">
+<table class="ink-table items" id="items-table">
   <thead>
       <th>Name</th>
       <th>Point</th>
@@ -12,41 +10,10 @@
     <tbody>
     </tbody>
 </table>
-<!--
-<table>
-  <thead>
-    <% project.headers.each do |heading| %>
-      <th><%= heading.to_s.titleize %></th>
-    <% end %>
-    <th>Photos</th>
-    <th>Actions</th>
-    <th>Upload</th>
-  </thead>
-
-  <tbody>
-    <% items.each do |item| %>
-      <tr <% if item == current_item %>style='background-color:#eee;'<% end %>>
-        <% project.headers.each do |column| %>
-          <td><%= item.try(:send, column) %></td>
-        <% end %>
-        <td>Item count</td>
-        <td><%= link_to 'View', project_item_path(project, item, page: params[:page]) %></td>
-        <td>
-          <%= simple_form_for(Photo.new(item_id: item.id)) do |f| %>
-            <%= f.input :item_id, as: :hidden %>
-            <%= f.file_field :image %>
-            <%= f.submit value: 'Save' %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
--->
 <script>$('.items').dynatable({
   dataset: {
     ajax: true,
-    ajaxUrl: '<%=request.original_url  %>.json',
+    ajaxUrl: '<%=project_items_url %>.json',
     ajaxOnLoad: true,
     records: []
   }

@@ -29,7 +29,7 @@ private
         "name" => item.name,
         "point" => item.point,
         "photos" => item.photos.count,
-        "actions" => link_to('View', project_item_path(item.project, item) ),
+        "actions" => link_to('View', project_item_path(item.project, item), :class => 'view-image', :"data-id" => item.id ),
         "upload" => form
       }
     end

@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @item }
+      format.json { render json: @item, include: :photos }
       format.geojson do
         payload = RGeo::GeoJSON.encode(@item.point)
         payload[:properties] = @item.import_data
