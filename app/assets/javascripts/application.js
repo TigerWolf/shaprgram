@@ -11,9 +11,23 @@
 // about supported directives.
 //
 //= require jquery
+//= require fotorama
+//= require retina
 //= require jquery_ujs
 //= require ink-all
 //= require autoload
 //= require html5shiv
 //= require leaflet
 //= require_tree .
+
+$(document).ready(function(){
+  $('.fotorama').on('fotorama:showend', function (e, fotorama, extra) {
+    var images = document.getElementsByTagName('img'), retinaImages = [], i, image;
+    for (i = 0; i < images.length; i += 1) {
+      image = images[i];
+      if (!!!image.getAttributeNode('data-no-retina')) {
+          retinaImages.push(new RetinaImage(image));
+      }
+    }
+  });
+});

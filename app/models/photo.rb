@@ -9,15 +9,15 @@ class Photo < ActiveRecord::Base
     styles: { 
               thumb:     ["180x180>",  :jpg],
               thumb_2x:  ["360x360>",  :jpg],
-              large:     ["624x416\\>",  :jpg],
-              large_2x:  ["1248X832\\>", :jpg]
+              large:     ["600x400\\>",  :jpg],
+              large_2x:  ["1200X800\\>", :jpg]
             },
     convert_options: {
-              large:    '-background "#f6f6f6" -gravity center -extent 624x416',
-              large_2x: '-background "#f6f6f6" -gravity center -extent 1248X832'
+              large:    '-background "#f6f6f6" -gravity center -extent 600x400',
+              large_2x: '-background "#f6f6f6" -gravity center -extent 1200X800'
            }
 
-  validates_attachment_presence :image
+  # validates_attachment_presence :image
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
 
   def image_from_url(url)
@@ -38,6 +38,10 @@ class Photo < ActiveRecord::Base
 
   Paperclip.interpolates :name do |a, s|
     a.instance.image_file_name.gsub(/\.\w{3,4}$/, '')
+  end
+
+  def is_video?
+    !video_url.blank? && video_url =~ /(vimeo)|(youtube)/
   end
 
 end

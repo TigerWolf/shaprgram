@@ -5,16 +5,18 @@
     </div>
 
     <div class="project-preview col-md-4">
-
-      <div class="alert alert-danger" title="TODO">
-        Does this work better as a sidebar or under the list? Hard to tell on my screen
-      </div>
     
       <div id="map" />
 
-      <% @item.photos.each do |photo| %>
-        <%= image_tag photo.image.url(:large) %>
-      <% end %>
+      <div class="fotorama" data-width="600" data-height="400">
+        <% @item.photos.each do |photo| %>
+          <% if photo.is_video? %>
+              <%= link_to 'video', photo.video_url %>
+            <% else %>
+              <%= image_tag photo.image.url(:large) %>
+            <% end %>
+        <% end %>
+      </div>
 
     </div>
   </div>
