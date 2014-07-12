@@ -1,7 +1,7 @@
 <div class="projects">
   <div class="row">
     <div class="project-items col-md-8" style="overflow-y: scroll; max-height: 400px">
-      <%= render 'list', project: @project, current_item: @item %>
+      <%= render 'list', project: @project, items: @items, current_item: @item %>
     </div>
 
     <div class="project-preview col-md-4">
@@ -11,10 +11,10 @@
       <div class="fotorama" data-width="600" data-height="400">
         <% @item.photos.each do |photo| %>
           <% if photo.is_video? %>
-              <%= link_to 'video', photo.video_url %>
-            <% else %>
-              <%= image_tag photo.image.url(:large) %>
-            <% end %>
+            <%= link_to 'video', photo.video_url %>
+          <% else %>
+            <%= image_tag photo.image.url(:large) %>
+          <% end %>
         <% end %>
       </div>
 

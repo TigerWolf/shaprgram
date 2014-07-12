@@ -1,5 +1,7 @@
 class Item < ActiveRecord::Base
 
+  paginates_per 20
+
   belongs_to :project
   has_many   :photos
 
