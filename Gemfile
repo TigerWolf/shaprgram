@@ -15,7 +15,7 @@ gem 'bootstrap-sass'
 gem 'leaflet-rails'
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :doc do
