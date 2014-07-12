@@ -19,10 +19,12 @@ private
   def data
     items.map do |item|
       form = simple_form_for(Photo.new(item_id: item.id)) { |f|
-        a = ""
+        a = "<div class='fileUpload'>";
         a+=f.input :item_id, as: :hidden
-        a+=f.file_field :image
-        a+=f.submit value: 'Save'
+        a+="<span class='ink-button'>Upload</span>"
+        a+=f.file_field :image, :class => 'upload'
+        a+=f.submit value: 'Save', :class => 'ink-button'
+        a+="</div>"
         a.html_safe
       }
       {
