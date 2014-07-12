@@ -1,10 +1,14 @@
 class Project < ActiveRecord::Base
 
   has_many :items
+<<<<<<< HEAD
 
   def headers
     %w(name point)
   end
+=======
+  belongs_to :user
+>>>>>>> 0fae9d8a4e8fd0e3c2032682cf71eaf0b06ef36e
 
   def records
     # ... Fancy arel query here based on uploaded file!

@@ -10,8 +10,11 @@
  *
  * = require leaflet
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
+/*@import "bootstrap-sprockets";
+@import "bootstrap";*/
+@import "ink";
+@import "ink-flexbox";
+@import "font-awesome";
 
 @import "welcome";
 @import "projects";
