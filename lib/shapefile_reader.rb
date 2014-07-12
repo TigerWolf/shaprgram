@@ -19,12 +19,12 @@ class ShapefileReader
     Zip::File.open(path) do |zip_file|
       zip_file.each do |entry|
         # Extract to file/directory/symlink
-        logger.info("Extracting #{entry.name} to #{@target}/#{entry.name}")
-        entry.extract("#{@target}/#{entry.name}")
+        logger.info("Extracting #{entry.name} to #{temp_path}/#{entry.name}")
+        entry.extract("#{temp_path}/#{entry.name}")
       end
     end
 
-    Dir["#{target}/*.shp"].first
+    Dir["#{temp_path}/*.shp"].first
   end
 
   def parse(path, project)
@@ -42,6 +42,6 @@ class ShapefileReader
     end
 
     # Success - we can ditch the working data
-    FileUtils.rm_rf(@target)
+    FileUtils.rm_rf(temp_path)
   end
 end
