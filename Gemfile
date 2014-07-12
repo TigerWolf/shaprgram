@@ -19,6 +19,7 @@ gem 'paperclip'
 gem 'kaminari'
 gem 'faker'
 gem 'simple_form'
+gem 'rubyzip'
 
 group :development, :test do
   gem 'pry-full'
