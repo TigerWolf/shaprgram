@@ -18,6 +18,7 @@
 //= require autoload
 //= require html5shiv
 //= require leaflet
+//= require jquery.dynatable
 //= require_tree .
 
 $(document).ready(function(){

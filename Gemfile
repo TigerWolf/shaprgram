@@ -23,7 +23,7 @@ gem 'rubyzip'
 gem 'rgeo-geojson'
 
 group :development, :test do
-  gem 'pry-full'
+  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rspec', '~> 3.0'

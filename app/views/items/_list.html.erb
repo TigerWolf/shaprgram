@@ -1,7 +1,19 @@
 <% current_item ||= nil %>
 
 <br>
-<table class="ink-table">
+<table class="ink-table items">
+  <thead>
+      <th>Name</th>
+      <th>Point</th>
+      <th>Photos</th>
+      <th>Actions</th>
+      <th>Upload</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<!--
+<table>
   <thead>
     <% project.headers.each do |heading| %>
       <th><%= heading.to_s.titleize %></th>
@@ -17,7 +29,7 @@
         <% project.headers.each do |column| %>
           <td><%= item.try(:send, column) %></td>
         <% end %>
-        <td><%= item.photos.count %></td>
+        <td>Item count</td>
         <td><%= link_to 'View', project_item_path(project, item, page: params[:page]) %></td>
         <td>
           <%= simple_form_for(Photo.new(item_id: item.id)) do |f| %>
@@ -30,5 +42,13 @@
     <% end %>
   </tbody>
 </table>
-
-<%= paginate items %>
+-->
+<script>$('.items').dynatable({
+  dataset: {
+    ajax: true,
+    ajaxUrl: '<%=request.original_url  %>.json',
+    ajaxOnLoad: true,
+    records: []
+  }
+});
+</script>
