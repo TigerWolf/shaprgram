@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712020344) do
+ActiveRecord::Schema.define(version: 20140712030647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -432,6 +432,9 @@ ActiveRecord::Schema.define(version: 20140712020344) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "srid"
+    t.string   "format"
+    t.json     "metadata"
   end
 
   create_table "secondary_unit_lookup", id: false, force: true do |t|

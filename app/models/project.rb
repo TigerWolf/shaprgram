@@ -1,4 +1,8 @@
 class Project < ActiveRecord::Base
+
+  has_many :items
+  belongs_to :user
+
   def records
     # ... Fancy arel query here based on uploaded file!
     # ... and push data into the plain old ruby object
