@@ -1,7 +1,5 @@
 class DataImport < ActiveRecord::Base
 
-  attr_accessor :data_source_uri
-
   belongs_to :project
   has_many :items
 
@@ -31,12 +29,13 @@ class DataImport < ActiveRecord::Base
 
     case response.uri.request_uri
     when /.km(l|z)$/
-      r = KmlReader.new(Rails.logger)
-      r.parse(temp_file.path, project)
+      KmlReader.new(Rails.logger).parse(temp_file.path, project)
     when /.csv$/
-      puts 'CSV'
+      CsvReader.new(Rails.logger).parse(temp_file.path, project)
     when /.zip$/
-      puts 'Hope its a shapefile!'
+      reader = ShapefileReader.new(Rails.logger)
+      path = reader.unzippify!(temp_file.path)
+      reader.parse(path, project)
     end
 
   end
