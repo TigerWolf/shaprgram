@@ -20,6 +20,10 @@ class Item < ActiveRecord::Base
     'lalala'
   end
 
+  def nice_point
+    "#{point.x} #{point.y}" if point
+  end
+
   scope :near, lambda { |latitude, longitude, distance_in_meters = 100000|
     where(%{
       ST_DWithin(

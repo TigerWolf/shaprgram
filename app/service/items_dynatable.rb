@@ -27,7 +27,7 @@ private
       }
       {
         "name" => item.name,
-        "point" => item.point,
+        "point" => item.nice_point,
         "photos" => item.photos.count,
         "actions" => link_to('View', project_item_path(item.project, item), :class => 'view-image', :"data-id" => item.id ),
         "upload" => form
