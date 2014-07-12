@@ -67,6 +67,8 @@ GEM
     diffy (3.0.5)
     erubis (2.7.0)
     execjs (2.2.1)
+    faker (1.2.0)
+      i18n (~> 0.5)
     fastercsv (1.5.5)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
@@ -248,6 +250,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  faker
   font-awesome-rails
   ink3-rails
   jbuilder (~> 1.2)

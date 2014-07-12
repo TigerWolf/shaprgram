@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(version: 20140712041247) do
     t.string   "name"
     t.string   "description"
     t.string   "data_source_uri"
+    t.string   "format"
     t.string   "status"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "srid"
-    t.string   "format"
     t.json     "metadata"
   end
 
