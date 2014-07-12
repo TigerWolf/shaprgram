@@ -13,4 +13,14 @@ class Item < ActiveRecord::Base
     'lalala'
   end
 
+  scope :near, lambda { |latitude, longitude, distance_in_meters = 5000000000000000000000000000000000000|
+    where(%{
+      ST_DWithin(
+        point::geography,
+        ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
+        %d
+      )
+    } % [latitude, longitude, distance_in_meters]).limit(50)
+  }
+
 end

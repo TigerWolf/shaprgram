@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'list'
     end
     resources :items do
+      get :near_me, on: :collection
     end
   end
   resources :photos
