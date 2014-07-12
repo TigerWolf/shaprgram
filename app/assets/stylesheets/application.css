@@ -15,7 +15,7 @@
 /*@import "bootstrap-sprockets";
 @import "bootstrap";*/
 @import "ink";
-@import "ink-flexbox";
+@import "ink-flex";
 @import "font-awesome";
 
 @import "welcome";

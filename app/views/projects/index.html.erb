@@ -5,8 +5,8 @@
   </tr>
   <% @projects.each do |project| %>
   <tr>
-    <td><%= project.name %></td>
-    <td><%= link_to(project_url(project), project.name) %></td>
+    <td><%= project.name or "Untitled Project" %></td>
+    <td><%= link_to (project.name or "Untitled Project"), project_url(project) %></td>
   </tr>
   <% end %>
   </table>
