@@ -14,7 +14,10 @@ Rails.application.routes.draw do
     end
   end
   resources :photos
-  resources :data_imports
+  resources :data_imports do
+    post :re_import, on: :member
+    get :edit_srid, on: :member
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

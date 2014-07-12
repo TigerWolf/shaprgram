@@ -10,6 +10,7 @@ class Item < ActiveRecord::Base
   paginates_per 20
 
   belongs_to :project
+  belongs_to :data_import
   has_many   :photos
 
   validates :project_id, :name, presence: true

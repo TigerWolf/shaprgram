@@ -1,5 +1,13 @@
 <div class="projects">
+  
+  <h2><%= @project.name %></h2>
+  <p>
+    <%= link_to 'back to project page', project_path(@project) %>
+  </p>
   <div class="row">
+
+
+
     <div class="project-items all">
       <%= render 'list', project: @project, items: @items %>
     </div>

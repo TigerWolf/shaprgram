@@ -1,4 +1,6 @@
 require 'rgeo/shapefile'
+require 'csv'
+require 'faker'
 
 class CsvReader
 
@@ -21,9 +23,9 @@ class CsvReader
       item = Item.new({
         name:           'Temp CSV', 
         # point:          row[project.metadata["geom_column"]],
-        import_data:    row.to_json,
-        data_import_id: data_import.id,
-        project_id:     data_import.project.id
+        import_data: row.to_hash,
+        data_import: data_import,
+        project_id:  data_import.project.id
       })
 
       item.save

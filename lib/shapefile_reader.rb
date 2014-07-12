@@ -17,19 +17,19 @@ class ShapefileReader
   end
 
   def wgs84_factory
-wgs84_proj4 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
-wgs84_wkt = <<WKT
-  GEOGCS["WGS 84",
-    DATUM["WGS_1984",
-      SPHEROID["WGS 84",6378137,298.257223563,
-        AUTHORITY["EPSG","7030"]],
-      AUTHORITY["EPSG","6326"]],
-    PRIMEM["Greenwich",0,
-      AUTHORITY["EPSG","8901"]],
-    UNIT["degree",0.01745329251994328,
-      AUTHORITY["EPSG","9122"]],
-    AUTHORITY["EPSG","4326"]]
-WKT
+# wgs84_proj4 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+# wgs84_wkt = <<WKT
+#   GEOGCS["WGS 84",
+#     DATUM["WGS_1984",
+#       SPHEROID["WGS 84",6378137,298.257223563,
+#         AUTHORITY["EPSG","7030"]],
+#       AUTHORITY["EPSG","6326"]],
+#     PRIMEM["Greenwich",0,
+#       AUTHORITY["EPSG","8901"]],
+#     UNIT["degree",0.01745329251994328,
+#       AUTHORITY["EPSG","9122"]],
+#     AUTHORITY["EPSG","4326"]]
+# WKT
 
     @factory ||= wgs84_factory = RGeo::Geographic.spherical_factory(srid: 4326)
   end
@@ -47,28 +47,37 @@ WKT
     Dir["#{temp_path}/*.shp"].first
   end
 
+
+  # How to handle SRID??
+
   def parse(path, data_import)
 
     srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
     factory = RGeo::Geos.factory(srs_database: srs_database, srid: data_import.srid)
 
-    if srs_database.get(data_import.srid).proj4.nil?
-      raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
-    end
+    # if srs_database.get(data_import.srid).proj4.nil?
+    #   raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
+    # end
 
     RGeo::Shapefile::Reader.open(path, factory: factory) do |file|
 
       items = []
       file.each do |record|
 
-        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory)
+        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
+
+        puts cartesian_cast
+
+        if data_import.project.administrative_boundry
+          next unless data_import.project.administrative_boundry.area.contains?(cartesian_cast)
+        end
 
         item = Item.new({
-          name:          'Temp SHP', #record.attributes[project.metadata["name_column"]],
-          point:          cartesian_cast,
-          import_data:    record.attributes,
-          project_id:     data_import.project.id,
-          data_import_id: data_import.id
+          name:        'Temp SHP', #record.attributes[project.metadata["name_column"]],
+          point:       cartesian_cast,
+          import_data: record.attributes,
+          project_id:  data_import.project.id,
+          data_import: data_import
         })
         items << item
         logger.info("Imported #{item.name} at #{item.point}")
@@ -77,6 +86,8 @@ WKT
       Item.import items
     end
 
+    rescue ArgumentError
+    ensure
     # Success - we can ditch the working data
     FileUtils.rm_rf(temp_path)
   end

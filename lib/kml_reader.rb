@@ -66,11 +66,11 @@ WKT
       end
 
       item = Item.new({
-        name:           'Temp KML', 
-        import_data:    row.to_json,
-        point:          row.as_wkt,
-        data_import_id: data_import.id,
-        project_id:     data_import.project.id
+        name:        'Temp KML', 
+        import_data: row.to_json,
+        point:       row.as_wkt,
+        data_import: data_import,
+        project_id:  data_import.project.id
       })
 
       item.save

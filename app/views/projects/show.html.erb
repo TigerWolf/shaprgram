@@ -10,22 +10,25 @@
     <% if @project.data_imports.count > 0 %>
       <h3>Current Data Sources</h3>
 
-      <table>
+      <table class='ink-table'>
         <thead>
           <tr>
             <th>Data Source</th>
             <th>Status</th>
+            <th>Items</th>
             <th>Actions</th>
           </tr>
         </thead>  
         <tbody>
-          <% @project.data_imports.each do |import| %>
+          <% @project.data_imports.order(:id).each do |import| %>
             <tr>
-              <td><%= import.data_source_uri %></td>
+              <td style='font-size:0.7em'><%= import.data_source_uri %></td>
               <td><%= import.status %></td>
+              <td><%= import.items.count %></td>
               <td>
-                <a href=''>Map Data Fields</a> |
-                <a href=''>Re-Import</a> |
+                <%= link_to 'Map Data Fields', edit_data_import_path(import) %><br />
+                <%= link_to 'Re-Import', re_import_data_import_path(import), method: :post, confirm: 'Are you sure? This will delete existing import data first!' %><br />
+                <%= link_to 'Change SRID', edit_srid_data_import_path(import) %><br />
                 <a href=''>Delete Data Set</a>
               </td>
             </tr>
@@ -40,9 +43,9 @@
       <div class="control-group all-33">
         <%= f.input :project_id, as: :hidden %>
         <%= f.input :data_source_uri, label: 'Data Source URI', placeholder: 'http://...' %>
-        <small class="pull-right">(csv w/coordinates, kml or shp)</small>
+        <small class="pull-left">(csv w/coordinates, kml or shp)</small>
       </div>
-      <div class="control-group all-33">
+      <div class="control-group all-33" style='clear:left;'>
         <div class="control">
           <br>
           <button class="ink-button">Import Data Set</button>
