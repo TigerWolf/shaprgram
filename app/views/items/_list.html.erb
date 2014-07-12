@@ -18,6 +18,13 @@
         <% end %>
         <td><%= item.photos.count %></td>
         <td><%= link_to 'View', project_item_path(project, item) %></td>
+        <td>
+          <%= simple_form_for(Photo.new(item_id: item.id)) do |f| %>
+            <%= f.input :item_id, as: :hidden %>
+            <%= f.file_field :image %>
+            <%= f.submit %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

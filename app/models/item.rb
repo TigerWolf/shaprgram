@@ -5,6 +5,8 @@ class Item < ActiveRecord::Base
 
   validates :project_id, :name, presence: true
 
+  accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
+
   def description
     'lalala'
   end

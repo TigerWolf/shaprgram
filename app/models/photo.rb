@@ -17,7 +17,7 @@ class Photo < ActiveRecord::Base
               large_2x: '-background "#f6f6f6" -gravity center -extent 1200X800'
            }
 
-  # validates_attachment_presence :image
+  validates_attachment_presence :image, if: -> { !is_video? }
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
 
   def image_from_url(url)

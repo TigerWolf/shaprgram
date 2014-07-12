@@ -18,6 +18,7 @@ gem 'leaflet-rails'
 gem 'paperclip'
 gem 'kaminari'
 gem 'faker'
+gem 'simple_form'
 
 group :development, :test do
   gem 'pry-full'

@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     member do
       get 'list'
     end
-    resources :items
+    resources :items do
+    end
   end
+  resources :photos
 
   # Example resource route with sub-resources:
   #   resources :products do
