@@ -35,6 +35,21 @@ $(document).ready(function(){
 
   $( "#items-table" ).on( "click",".view-image", function(e) {
     e.preventDefault();
-    console.log(e.data());
+    //debugger;
+    id = $(this).data().id;
+    // Instead of going to json - get url from link??
+    // May need to use json for multiple images
+
+    $.getJSON('/projects/7/items/'+id+'.json', function( data ) {
+      // $.each( data.items, function( i, item ) {
+        debugger;
+        if (data.photos) {
+          $( "<img>" ).attr( "src", '/system/photos/'+data.photos[0].id+'/'+data.photos[0].image_file_name ).appendTo( "#images" );
+        }
+      //});
+
+      //console.log(data);
+    });
+    // console.log(e.data());
   });
 });
