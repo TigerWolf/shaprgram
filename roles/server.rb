@@ -28,4 +28,3 @@ default_attributes(
 )
 
 run_list 'recipe[build-essential]', 'recipe[yum]', 'recipe[extra-yum-repos::atrpms]','recipe[ruby_build]', 'recipe[git]', 'recipe[xml]', 'recipe[tmux::_package]', 'recipe[screen::default]', 'recipe[newrelic-sysmond::default]', 'recipe[postfix::default]', 'recipe[postfix::sasl_auth]'
-
