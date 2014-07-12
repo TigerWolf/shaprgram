@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
   def near_me
     if cookies[:lat_lng]
       @lat, @lng = cookies[:lat_lng].split("|")
-      @items = @project.items.near(@lng, @lat, 10_000).page params[:page]
+      @items = @project.items.near(@lng, @lat, 100_000).page params[:page]
     end
   end
 

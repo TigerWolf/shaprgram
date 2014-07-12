@@ -6,9 +6,10 @@ function getGeoLocation() {
 function setGeoCookie(position) {
   var cookie_val = position.coords.latitude + "|" + position.coords.longitude;
   document.cookie = "lat_lng=" + escape(cookie_val);
-  document.location = '<%= link_to near_me_project_items_path(@project) %>'
+  document.location = '<%= near_me_project_items_path(@project) %>'
 }
 </script>
+
 <%- unless @lat %>
 <script>
   getGeoLocation();
