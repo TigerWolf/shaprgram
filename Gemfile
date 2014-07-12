@@ -15,7 +15,7 @@ gem 'bootstrap-sass'
 gem 'leaflet-rails'
 
 group :development, :test do
-  gem 'pry-rails'
+  gem 'pry-full'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rspec', '~> 3.0'
