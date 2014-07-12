@@ -57,27 +57,16 @@ WKT
     parser = GeoRuby::KmlParser.new(factory)
     
     parser.parse(File.read(path)).each do |row|
-      require 'pry'
-      binding.pry
-      raise 'yo'
+
+      item = Item.new({
+        name: '1', 
+        import_data: row.to_json,
+        point: row.as_wkt
+      })
+
+      project.items << item
+      logger.info("Imported #{item.name} at #{item.point}")
     end
 
-
-    # CSV.read(path, headers: true).each do |row|
-    #   next if row[project.metadata["name_column"]].blank?
-
-    #   # f = RGeo::Geographic.projected_factory(:projection_proj4 => proj4, :projection_srid => srid)
-    #   # f = wgs84_factory.parse_wkt(row[project.metadata["geom_column"]])
-    #   # cartesian_cast = RGeo::Feature.cast(f, wgs84_factory, :project)
-
-    #   item = Item.new({
-    #     name: row[project.metadata["name_column"]], 
-    #     import_data: row.to_json,
-    #     point: wgs84_factory.parse_wkt(row[project.metadata["geom_column"]])
-    #   })
-
-    #   project.items << item
-    #   logger.info("Imported #{item.name} at #{item.point}")
-    # end
   end
 end
