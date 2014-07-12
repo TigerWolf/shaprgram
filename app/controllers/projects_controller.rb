@@ -12,17 +12,20 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    require 'net/http'
-
-    uri = URI(params[:data_source_uri])
-    response = Net::HTTP.get_response(uri)
-
-    temp_file = Tempfile.new('shapefile')
-    temp_file.write(response.body)
-
     project = Project.new(project_params)
     project.save!
     redirect_to project
+  end
+
+  def update
+    project = Project.find(params[:id])
+    if project.update_attributes(project_params)
+      flash[:notice] = 'Project updated.'
+    else
+      flash[:notice] = 'Could not update project.'
+    end
+
+    redirect_to :back
   end
 
   def new
@@ -73,7 +76,9 @@ class ProjectsController < ApplicationController
   end
 
   private
-  def project_params
-    params.require(:project).permit(:name, :data_source_uri)
-  end
+
+    def project_params
+      params.require(:project).permit(:name, :data_source_uri, :administrative_boundry_id)
+    end
+
 end
