@@ -47,29 +47,31 @@ WKT
     Dir["#{temp_path}/*.shp"].first
   end
 
-  def parse(path, project)
-    srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
-    factory = RGeo::Geos.factory(srs_database: srs_database, srid: project.srid)
+  def parse(path, data_import)
 
-    # if srs_database.get(project.srid).proj4.nil?
-    #   raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
-    # end
+    srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
+    factory = RGeo::Geos.factory(srs_database: srs_database, srid: data_import.srid)
+
+    if srs_database.get(data_import.srid).proj4.nil?
+      raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
+    end
 
     RGeo::Shapefile::Reader.open(path, factory: factory) do |file|
 
       items = []
       file.each do |record|
 
-        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
+        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory)
 
-        item =  Item.new({
-          name:  '1',#record.attributes[project.metadata["name_column"]],
-          point:       cartesian_cast,
-          import_data: record.attributes,
-          project_id:  project.id
+        item = Item.new({
+          name:          'Temp SHP', #record.attributes[project.metadata["name_column"]],
+          point:          cartesian_cast,
+          import_data:    record.attributes,
+          project_id:     data_import.project.id,
+          data_import_id: data_import.id
         })
         items << item
-        # logger.info("Imported #{item.name} at #{item.point}")
+        logger.info("Imported #{item.name} at #{item.point}")
       end
 
       Item.import items

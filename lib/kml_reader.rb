@@ -47,25 +47,34 @@ WKT
     Dir["#{temp_path}/*.kml"].first
   end
 
-  def parse(path, project)
+  def parse(path, data_import)
 
     if path =~ /.kmz\z/
       path = unzippify!(path)
     end
 
+    # establish whether any srid casting needs to be done.
 
     factory = GeoRuby::SimpleFeatures::GeometryFactory.new
     parser = GeoRuby::KmlParser.new(factory)
-    
+    rgeo_factory = RGeo::Cartesian.factory
+
     parser.parse(File.read(path)).each do |row|
 
+      if data_import.project.administrative_boundry
+        next unless data_import.project.administrative_boundry.area.contains? rgeo_factory.parse_wkt(row.as_wkt)
+      end
+
       item = Item.new({
-        name: '1', 
-        import_data: row.to_json,
-        point: row.as_wkt
+        name:           'Temp KML', 
+        import_data:    row.to_json,
+        point:          row.as_wkt,
+        data_import_id: data_import.id,
+        project_id:     data_import.project.id
       })
 
-      project.items << item
+      item.save
+
       logger.info("Imported #{item.name} at #{item.point}")
     end
 

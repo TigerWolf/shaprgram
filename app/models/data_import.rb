@@ -1,5 +1,7 @@
 class DataImport < ActiveRecord::Base
 
+  attr_accessor :name_field
+
   belongs_to :project
   has_many :items
 
@@ -9,6 +11,18 @@ class DataImport < ActiveRecord::Base
 
   # stop accidental re-importing of multiple datasets
   validates_uniqueness_of :data_source_uri, scope: :project_id
+
+  def status
+    'Pending Mapping'
+  end
+
+  def srid
+    4326
+  end
+
+  def item_attributes
+    items.first.try(:import_data).try(:keys)
+  end
 
   # TODO: Sidekiq this!
   def import_data
@@ -34,13 +48,13 @@ class DataImport < ActiveRecord::Base
 
     case response.uri.request_uri
     when /.km(l|z)$/
-      KmlReader.new(Rails.logger).parse(temp_file.path, project)
+      KmlReader.new(Rails.logger).parse(temp_file.path, self)
     when /.csv$/
-      CsvReader.new(Rails.logger).parse(temp_file.path, project)
+      CsvReader.new(Rails.logger).parse(temp_file.path, self)
     when /.zip$/
       reader = ShapefileReader.new(Rails.logger)
       path = reader.unzippify!(temp_file.path)
-      reader.parse(path, project)
+      reader.parse(path, self)
     end
   end
 

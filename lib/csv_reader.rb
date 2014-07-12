@@ -10,18 +10,24 @@ class CsvReader
     @logger
   end
 
+  def parse(path, data_import)
 
-  def parse(path, project)
     CSV.read(path, headers: true).each do |row|
-      next if row[project.metadata["name_column"]].blank?
+      # next if row[project.metadata["name_column"]].blank?
+
+      # TODO: apply SRID casting here if required?
+      # TODO: establish geom_column here?
 
       item = Item.new({
-        name: row[project.metadata["name_column"]], 
-        import_data: row.to_json,
-        point: row[project.metadata["geom_column"]]
+        name:           'Temp CSV', 
+        # point:          row[project.metadata["geom_column"]],
+        import_data:    row.to_json,
+        data_import_id: data_import.id,
+        project_id:     data_import.project.id
       })
 
-      project.items << item
+      item.save
+
       logger.info("Imported #{item.name} at #{item.point}")
     end
   end

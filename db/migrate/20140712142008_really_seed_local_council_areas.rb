@@ -13,7 +13,7 @@ class ReallySeedLocalCouncilAreas < ActiveRecord::Migration
         count += 1
         puts count
         r = AdministrativeBoundry.new(
-          name: "#{record.attributes['LGA_NAME11'].gsub(/ (C)/, '')}",
+          name: "#{record.attributes['LGA_NAME11']}",
           description: "Local Government Area 2011 - #{record.attributes['LGA_NAME11']}"
         )
         cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
