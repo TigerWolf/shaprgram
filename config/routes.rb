@@ -6,10 +6,11 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :projects do
-     member do
-       get 'list'
-     end
-   end
+    member do
+      get 'list'
+    end
+    resources :items
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

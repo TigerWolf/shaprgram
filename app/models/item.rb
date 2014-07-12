@@ -5,4 +5,8 @@ class Item < ActiveRecord::Base
 
   validates :project_id, :name, presence: true
 
+  def description
+    'lalala'
+  end
+
 end

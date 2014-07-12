@@ -1,0 +1,23 @@
+<% current_item ||= nil %>
+
+<table class="table">
+  <thead>
+    <% project.headers.each do |heading| %>
+      <th><%= heading.to_s.titleize %></th>
+    <% end %>
+    <th>Photos</th>
+    <th>Actions</th>
+  </thead>
+
+  <tbody>
+    <% project.items.each do |item| %>
+      <tr <% if item == current_item %>style='background-color:#eee;'<% end %>>
+        <% project.headers.each do |column| %>
+          <td><%= item.try(:send, column) %></td>
+        <% end %>
+        <td><%= item.photos.count %></td>
+        <td><%= link_to 'View', project_item_path(project, item) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

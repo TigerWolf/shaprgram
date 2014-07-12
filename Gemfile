@@ -14,6 +14,7 @@ gem 'activerecord-postgis-adapter'
 gem 'bootstrap-sass'
 gem 'leaflet-rails'
 gem 'paperclip'
+gem 'kaminari'
 
 group :development, :test do
   gem 'pry-full'
