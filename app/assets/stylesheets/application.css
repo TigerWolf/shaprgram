@@ -28,3 +28,8 @@ margin-bottom: 1.5em;
 -webkit-border-radius: 2px;
 border-radius: 2px;
 }
+
+
+.ink-table thead tr {
+  background: #000;
+}
