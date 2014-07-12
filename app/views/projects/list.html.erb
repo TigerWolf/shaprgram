@@ -1,0 +1,126 @@
+<div class="projects">
+  <div class="row">
+    <div class="project-items col-md-8" style="overflow-y: scroll; max-height: 400px">
+      <table class="table">
+        <thead>
+          <% @project.records.first.data.keys.each do |heading| %>
+            <th><%= heading.to_s.titleize %></th>
+          <% end %>
+        </thead>
+
+        <tbody>
+          <% @project.records.each do |record| %>
+            <tr>
+              <% record.data.keys.each do |heading| %>
+                <% if heading == :the_geom %>
+                  <td><%= link_to "View", '#', :data => record.data.merge(coords: "-34.9290,138.6010") %></td>
+                <% elsif heading == :image_url %>
+                  <% if !record.data[heading] %>
+                    <td>
+                      <form>
+                        <input type="file" title="TODO: http://jsfiddle.net/fyneworks/2LLws/ ?" />
+                        <input type="submit" />
+                      </form>
+                    </td>
+                  <% end %>
+                <% else %>
+                  <td><%= record.data[heading] %></td>
+                <% end %>
+              <% end %>    
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="project-preview col-md-4">
+
+      <div class="alert alert-danger" title="TODO">
+        Does this work better as a sidebar or under the list? Hard to tell on my screen
+      </div>
+
+      <img id="preview"  src="" alt="" />
+    
+      <div id="map" />
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <h4> Licence </h4>
+      <select>
+        <option>CC-BY 3.0</option>
+      </select>
+      <br />
+      <small>Choose a photo license</small>
+
+      <div class="alert alert-danger" title="TODO">
+        Put this in the previous screen?
+      </div>
+    </div>
+
+
+
+    <div class="col-md-2 col-md-offset-1">
+      <h4> Download </h4>
+      <a class="btn btn-primary">
+        <i class="icon-zip" />
+        .zip
+      </a>
+      <br />
+      <small>Contains shape files, links to images, etc</small>
+    </div>
+
+    <div class="col-md-2 col-md-offset-1">
+      <h4> Share </h4>
+      <a class="btn btn-primary">
+        Generate link
+      </a>
+      <br />
+      <small>Share this project with your crowd</small>
+    </div>    
+
+  </div>
+</div>
+<script type="text/javascript">
+var listApplication = {
+  init: function () {
+    var map = listApplication.map;
+    $('a[data-coords]').click(listApplication.actions.view);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  },
+  map: L.map('map'),
+  marker: null,
+  actions: {
+    view: function(e) {
+      var map = listApplication.map;
+      var coords = $(e.target).data('coords').split(",");
+      
+      map.setView(coords, 17);
+
+      if (listApplication.marker) {
+        map.removeLayer(listApplication.marker);
+      }
+      // TODO Handlebars?
+      var template = '';
+      
+      for (key in $(e.target).data()) {
+        template += String(key) + ": " + String($(e.target).data(key)) + "<br />";
+      }
+      listApplication.marker = L.marker(coords).addTo(map)
+          .bindPopup(template);
+
+      $('#preview').attr('src', $(e.target).data('imageUrl'));
+    }
+  }
+
+};
+
+
+listApplication.init();
+
+</script>

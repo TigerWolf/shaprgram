@@ -7,8 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="ink-grid">
+  <div class="column-group push-center push-middle">
+    <div class="all-90">
+    <nav class="ink-navigation">
+    <ul class="menu horizontal black">
+      <li><a href="/">Home</a></li>
+      <li><a href="#">Help</a></li>
+    </ul>
+    </nav>
 
-<%= yield %>
-
+    <%= yield %>
+    </div>
+  </div>
+</div>
 </body>
 </html>
