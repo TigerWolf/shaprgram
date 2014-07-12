@@ -1,0 +1,5 @@
+<p>Your url for your project is: <%= project_url(@project) %> share it with others to contribute</p>
+
+<p>Now you need to choose your columns from your data</p>
+
+<a  href="<%= url_for(:controller => :items, :project_id => @project) %>" class="ink-button">Start adding photos</a>

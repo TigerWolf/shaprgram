@@ -1,0 +1,40 @@
+== Photo Data Tool
+
+We love open data, because it lets you do neat things. The problem with open data is how much effort is required to make it useful.
+
+This application is aimed at government data producers who may not have the full resources of a geospatial team at their beck and call, who need to crowdsource information about their assets; and anyone that can benefit from visual imagery to supplement raw data.
+
+=== Use cases
+
+
+==== Inventory
+Adelaide City Council produces a number of data sets regarding picnic sites, which is published on their website and as open data. Unfortunately no one was able to snap a few photos at the time, and google streetview doesn't reach these places.
+
+Using this tool, anyone with a shapefile or CSV can put up a list of assets that need photographs, and download a simple .zip file with an enhanced dataset.
+
+==== Asset tracking
+Just spent a few hard earned rate payer dollars on nice new benches? Use this tool to capture a visual representation of the asset at the time of installation; and during routine tasks - letting you see how your assets survive in the wild, when they need repair or more.
+
+==== Much more
+
+* Parking spaces & restricted parking - all parking inspectors carry cameras, making it trivial to document your city
+* Signs - need to capture the signed speed limits across multiple authorities? Use this tool to complete your dataset (@@link to geelong city council efforts)
+* Tree health - Let members of your community tell you when a tree is ill, growing too much or more - find out *before* it becomes a costly issue to rectify.
+
+=== Get started
+
+==== Development
+
+* Postgres 9.*+
+* Postgis 2
+* Ruby 2.1.*+
+
+
+    bundle
+    cp config/database.yml.sample config/database.yml
+    bundle exec rake db:create
+    bundle exec rake db:gis:setup
+    bundle exec rake db:migrate
+    bundle exec rake db:seed
+    bundle exec rake fake:csv_project
+    bundle exec rails s

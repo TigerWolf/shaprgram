@@ -1,0 +1,10 @@
+/.bundle
+/db/*.sqlite3
+/log/*.log
+/tmp
+config/database.yml
+config/google_analytics.yml
+.DS_Store
+/nbproject/
+public/system/**
+public/assets/**

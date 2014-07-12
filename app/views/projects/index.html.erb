@@ -1,0 +1,12 @@
+<table class="ink-table">
+  <tr>
+    <th>Name</th>
+    <th>Link</th>
+  </tr>
+  <% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name or "Untitled Project" %></td>
+    <td><%= link_to (project.name or "Untitled Project"), project_url(project) %></td>
+  </tr>
+  <% end %>
+  </table>
