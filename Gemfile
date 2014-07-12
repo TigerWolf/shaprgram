@@ -22,6 +22,9 @@ gem 'simple_form'
 gem 'rubyzip'
 gem 'rgeo-geojson'
 gem 'georuby', git: 'git://github.com/chris-teague/georuby.git'
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'delayed_paperclip'
 
 group :development, :test do
   gem 'pry-rails'
