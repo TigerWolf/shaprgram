@@ -17,6 +17,7 @@ gem 'font-awesome-rails'
 gem 'leaflet-rails'
 gem 'paperclip'
 gem 'kaminari'
+gem 'faker'
 
 group :development, :test do
   gem 'pry-full'

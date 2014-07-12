@@ -36,4 +36,5 @@ Just spent a few hard earned rate payer dollars on nice new benches? Use this to
     bundle exec rake db:gis:setup
     bundle exec rake db:migrate
     bundle exec rake db:seed
+    bundle exec rake fake:csv_project
     bundle exec rails s
