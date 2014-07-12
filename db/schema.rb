@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712041247) do
+ActiveRecord::Schema.define(version: 20140712072208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20140712041247) do
     t.json     "import_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "point",       limit: {:srid=>0, :type=>"point"}
+    t.spatial  "point",       limit: {:srid=>4326, :type=>"point"}
   end
 
   create_table "photos", force: true do |t|

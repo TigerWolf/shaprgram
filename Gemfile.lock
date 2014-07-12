@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/chris-teague/georuby.git
+  revision: d8d305ca6d34701b786845b9d904cb0247b7a6dd
+  specs:
+    georuby (2.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -264,6 +270,7 @@ DEPENDENCIES
   bootstrap-sass
   faker
   font-awesome-rails
+  georuby!
   ink3-rails
   jbuilder (~> 1.2)
   jquery-rails

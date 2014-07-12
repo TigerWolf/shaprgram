@@ -49,4 +49,22 @@ namespace :fake do
 
     project.save!
   end
+
+  desc "Import a faux kml/kmz project for testing"
+  task kml_project: :environment do
+    path = File.join(File.dirname(__FILE__), "data", "seats.kmz") 
+
+    project = Project.create(name: Faker::Lorem.sentence)
+    project.format = "kml"
+    project.srid = 4326
+    project.metadata = {
+      geom_column: "Geometry",
+      name_column: "Asset ID (Identifier)"
+    }
+
+    reader = KmlReader.new(logger)
+    reader.parse(path, project)
+
+    project.save!
+  end
 end
