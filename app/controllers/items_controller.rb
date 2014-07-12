@@ -2,11 +2,15 @@ require 'rgeo/geo_json'
 require 'json'
 
 class ItemsController < ApplicationController
-  
+
   before_filter :find_project
 
   def index
-    @items = @project.items.page params[:page]
+    @items = @project.items.includes(:photos)
+    respond_to do |format|
+      format.html
+      format.json { render json: ::ItemsDynatable.new(view_context, @items) }
+    end
   end
 
   def show
@@ -15,11 +19,11 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @item }
+      format.json { render json: @item, include: :photos }
       format.geojson do
         payload = RGeo::GeoJSON.encode(@item.point)
         payload[:properties] = @item.import_data
-      
+
         render json: payload
       end
     end

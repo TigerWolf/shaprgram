@@ -24,7 +24,7 @@ gem 'rgeo-geojson'
 gem 'georuby', git: 'git://github.com/chris-teague/georuby.git'
 
 group :development, :test do
-  gem 'pry-full'
+  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rspec', '~> 3.0'

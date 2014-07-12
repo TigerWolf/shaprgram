@@ -1,14 +1,16 @@
 <div class="projects">
   <div class="row">
-    <div class="project-items col-md-8" style="overflow-y: scroll; max-height: 400px">
+    <div class="project-items all">
       <%= render 'list', project: @project, items: @items %>
     </div>
 
     <div class="project-preview col-md-4">
 
       <img id="preview"  src="" alt="" />
-    
+
       <div id="map"></div>
+
+      <div id="image"></div>
 
     </div>
   </div>
@@ -46,7 +48,7 @@
       </a>
       <br />
       <small>Share this project with your crowd</small>
-    </div>    
+    </div>
 
   </div>
 </div>
@@ -66,7 +68,7 @@ var listApplication = {
     view: function(e) {
       var map = listApplication.map;
       var coords = $(e.target).data('coords').split(",");
-      
+
       map.setView(coords, 17);
 
       if (listApplication.marker) {
@@ -74,7 +76,7 @@ var listApplication = {
       }
       // TODO Handlebars?
       var template = '';
-      
+
       for (key in $(e.target).data()) {
         template += String(key) + ": " + String($(e.target).data(key)) + "<br />";
       }

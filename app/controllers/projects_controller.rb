@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
     temp_file.write(response.body)
 
     project = Project.new(project_params)
-    project.slug = Digest::SHA1.hexdigest([Time.now, rand].join)[0...8].upcase
     project.save!
     redirect_to project
   end
