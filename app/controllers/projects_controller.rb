@@ -3,6 +3,29 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def index
+    @projects = Project.all
+  end
+
+  def show
+    @projects = Project.find(params[:id])
+  end
+
+  def create
+    require 'net/http'
+
+    uri = URI(params[:data_source_uri])
+    response = Net::HTTP.get_response(uri)
+
+    temp_file = Tempfile.new('shapefile')
+    temp_file.write(response.body)
+
+    project = Project.new(project_params)
+    project.slug = Digest::SHA1.hexdigest([Time.now, rand].join)[0...8].upcase
+    project.save!
+    redirect_to project
+  end
+
   def new
     # TODO Refactor to service object?
     require 'net/http'
@@ -27,7 +50,7 @@ class ProjectsController < ApplicationController
 
     # record = records.first
     #
-    # and 
+    # and
     #
     # create_table project.uniq_table! do |t|
     #   record.attributes.each_with_key do |k, v|
@@ -48,5 +71,10 @@ class ProjectsController < ApplicationController
     # project.save!
 
     redirect_to "/projects/1/list"
+  end
+
+  private
+  def project_params
+    params.require(:project).permit(:name, :data_source_uri)
   end
 end
