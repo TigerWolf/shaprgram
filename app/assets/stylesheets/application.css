@@ -50,3 +50,5 @@ border-radius: 2px;
   opacity: 0;
   filter: alpha(opacity=0);
 }
+
+#data_import_data_source_uri { width: 150%; }
