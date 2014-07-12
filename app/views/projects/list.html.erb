@@ -4,21 +4,21 @@
       <%= render 'item_list', project: @project %>
     </div>
 
-    <div class="project-preview col-md-4">
+    <div class="all-40">
 
-      <div class="alert alert-danger" title="TODO">
+      <div class="red" title="TODO">
         Does this work better as a sidebar or under the list? Hard to tell on my screen
       </div>
 
       <img id="preview"  src="" alt="" />
-    
+
       <div id="map" />
 
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-2 col-md-offset-1">
+    <div class="all-20">
       <h4> Licence </h4>
       <select>
         <option>CC-BY 3.0</option>
@@ -50,7 +50,7 @@
       </a>
       <br />
       <small>Share this project with your crowd</small>
-    </div>    
+    </div>
 
   </div>
 </div>
@@ -70,7 +70,7 @@ var listApplication = {
     view: function(e) {
       var map = listApplication.map;
       var coords = $(e.target).data('coords').split(",");
-      
+
       map.setView(coords, 17);
 
       if (listApplication.marker) {
@@ -78,7 +78,7 @@ var listApplication = {
       }
       // TODO Handlebars?
       var template = '';
-      
+
       for (key in $(e.target).data()) {
         template += String(key) + ": " + String($(e.target).data(key)) + "<br />";
       }

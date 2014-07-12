@@ -18,3 +18,11 @@
 
 @import "welcome";
 @import "projects";
+
+.highlight {
+padding: 1em;
+background: #eeebe5;
+margin-bottom: 1.5em;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+}
