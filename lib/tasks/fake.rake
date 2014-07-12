@@ -3,6 +3,7 @@ namespace :fake do
   require 'faker'
   require 'logger'
   require 'rgeo'
+  require 'zip'
 
   logger = Logger.new(STDOUT)
   logger.level = Logger::INFO
@@ -22,7 +23,8 @@ namespace :fake do
     }
 
 
-    shp_path = reader.unzippify! # TODO Inject paths n stuff
+    shp_path = reader.unzippify!("lib/tasks/data/bbq.zip")
+    raise "Invalid file" unless shp_path
 
     reader.parse(shp_path, project)
 
@@ -45,6 +47,6 @@ namespace :fake do
     reader = CsvReader.new(logger)
     reader.parse(path, project)
 
-    p.save!
+    project.save!
   end
 end

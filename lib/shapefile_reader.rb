@@ -1,5 +1,5 @@
 require 'rgeo/shapefile'
-
+require 'fileutils'
 class ShapefileReader
 
   def initialize(logger)
@@ -10,13 +10,21 @@ class ShapefileReader
     @logger
   end
 
-  def unzippify!()
-    Rails.logger.warn("Some pretty hard coded junk here! MUST refactor to a .zip library and identify the right .shp")
-    
-    path = "bbq.zip" 
-    %x{cd lib/tasks/data/ && unzip -o #{path}}
+  def temp_path
+    @target ||= Dir.mktmpdir
+  end
 
-    shp_path = File.join(File.dirname(__FILE__), "tasks", "data", "Barbeque.shp") 
+  def unzippify!(path)
+
+    Zip::File.open(path) do |zip_file|
+      zip_file.each do |entry|
+        # Extract to file/directory/symlink
+        logger.info("Extracting #{entry.name} to #{@target}/#{entry.name}")
+        entry.extract("#{@target}/#{entry.name}")
+      end
+    end
+
+    Dir["#{target}/*.shp"].first
   end
 
   def parse(path, project)
@@ -32,5 +40,8 @@ class ShapefileReader
         logger.info("Imported #{item.name} at #{item.point}")
       end
     end
+
+    # Success - we can ditch the working data
+    FileUtils.rm_rf(@target)
   end
 end
