@@ -12,6 +12,8 @@ gem 'rgeo-shapefile'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'bootstrap-sass'
+gem 'ink3-rails'
+gem 'font-awesome-rails'
 gem 'leaflet-rails'
 gem 'paperclip'
 
