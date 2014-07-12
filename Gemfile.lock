@@ -193,6 +193,8 @@ GEM
     rgeo-activerecord (1.1.0)
       activerecord (~> 4.0)
       rgeo (~> 0.3)
+    rgeo-geojson (0.3.1)
+      rgeo (~> 0.3)
     rgeo-shapefile (0.2.3)
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
@@ -266,6 +268,7 @@ DEPENDENCIES
   pry-full
   rails (= 4.1.4)
   rgeo
+  rgeo-geojson
   rgeo-shapefile
   rspec (~> 3.0)
   rubyzip

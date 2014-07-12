@@ -20,6 +20,7 @@ gem 'kaminari'
 gem 'faker'
 gem 'simple_form'
 gem 'rubyzip'
+gem 'rgeo-geojson'
 
 group :development, :test do
   gem 'pry-full'
