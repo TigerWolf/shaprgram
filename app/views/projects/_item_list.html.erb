@@ -1,4 +1,4 @@
-<table class="table">
+<table class="ink-table">
   <thead>
     <% project.records.first.data.keys.each do |heading| %>
       <th><%= heading.to_s.titleize %></th>
@@ -23,7 +23,7 @@
           <% else %>
             <td><%= record.data[heading] %></td>
           <% end %>
-        <% end %>    
+        <% end %>
       </tr>
     <% end %>
   </tbody>
