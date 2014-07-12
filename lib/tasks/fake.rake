@@ -21,7 +21,7 @@ namespace :fake do
     path = File.join(File.dirname(__FILE__), "data", "seats.csv") 
     
 
-    p = Project.new(name: Faker::Lorem.sentence)
+    p = Project.create(name: Faker::Lorem.sentence)
     p.format = "csv"
     p.srid = 4326
     p.metadata = {
@@ -34,7 +34,7 @@ namespace :fake do
 
       item = Item.new({
         name: row[p.metadata["name_column"]], 
-        import_data: row,
+        import_data: row.to_json,
         point: row[p.metadata["geom_column"]]
       })
 
@@ -42,6 +42,6 @@ namespace :fake do
       logger.info("Imported #{item.name} at #{item.point}")
     end
 
-    p.save
+    p.save!
   end
 end
