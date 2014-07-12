@@ -18,6 +18,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rspec', '~> 3.0'
 end
 
 group :doc do
