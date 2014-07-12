@@ -13,6 +13,7 @@ gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'bootstrap-sass'
 gem 'leaflet-rails'
+gem 'paperclip'
 
 group :development, :test do
   gem 'pry-full'
