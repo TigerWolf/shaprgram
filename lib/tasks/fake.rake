@@ -28,7 +28,7 @@ namespace :fake do
 
     reader.parse(shp_path, project)
 
-    p.save!
+    project.save!
   end
 
   desc "Import a faux csv project for testing"
