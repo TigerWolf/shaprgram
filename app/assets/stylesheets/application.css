@@ -11,15 +11,14 @@
  * = require leaflet
  * = require fotorama
  * = require jquery.dynatable
+ * = require ink
+ * = require ink-flex
+ * = require font-awesome
+ * = require welcome
+ * = require projects
  */
 /*@import "bootstrap-sprockets";
 @import "bootstrap";*/
-@import "ink";
-@import "ink-flex";
-@import "font-awesome";
-
-@import "welcome";
-@import "projects";
 
 .highlight {
 padding: 1em;

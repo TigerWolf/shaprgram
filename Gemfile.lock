@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/CloCkWeRX/ink3-rails.git
+  revision: db44de4d008aa83f8c826779b8b76c31ab69de1c
+  specs:
+    ink3-rails (0.1.3)
+      rails
+
+GIT
   remote: git://github.com/chris-teague/georuby.git
   revision: d8d305ca6d34701b786845b9d904cb0247b7a6dd
   specs:
@@ -77,8 +84,6 @@ GEM
       railties (>= 3.2, < 5.0)
     hike (1.2.3)
     i18n (0.6.11)
-    ink3-rails (0.1.3)
-      rails
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -217,7 +222,7 @@ DEPENDENCIES
   faker
   font-awesome-rails
   georuby!
-  ink3-rails
+  ink3-rails!
   jbuilder (~> 1.2)
   jquery-rails
   kaminari
