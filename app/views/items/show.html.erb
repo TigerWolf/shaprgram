@@ -6,7 +6,7 @@
 
     <div class="project-preview col-md-4">
     
-      <div id="map" />
+      <div id="map"></div>
 
       <div class="fotorama" data-width="600" data-height="400">
         <% @item.photos.each do |photo| %>
@@ -56,3 +56,47 @@
 
   </div>
 </div>
+
+
+<% if @item.point %>
+<script type="text/javascript">
+var listApplication = {
+  init: function () {
+    var map = listApplication.map;
+    $('a[data-coords]').click(listApplication.actions.view);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  },
+  map: L.map('map'),
+  marker: null,
+  actions: {
+    view: function(e) {
+      var map = listApplication.map;
+      var coords = [<%= @item.point.y %>, <%= @item.point.y %>];
+      map.setView(coords, 17);
+
+      if (listApplication.marker) {
+        map.removeLayer(listApplication.marker);
+      }
+      // TODO Handlebars?
+      var template = '';
+
+      for (key in $(e.target).data()) {
+        template += String(key) + ": " + String($(e.target).data(key)) + "<br />";
+      }
+      listApplication.marker = L.marker(coords).addTo(map)
+          .bindPopup(template);
+
+      $('#preview').attr('src', $(e.target).data('imageUrl'));
+    }
+  }
+
+};
+
+listApplication.init();
+
+</script>
+
+<% end %>
