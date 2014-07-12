@@ -6,7 +6,6 @@ class Item < ActiveRecord::Base
   end
 
   set_rgeo_factory_for_column(:location, Factories::PROJECTED)
-  
 
   paginates_per 20
 

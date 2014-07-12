@@ -48,15 +48,15 @@ WKT
   def parse(path, project)
     srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
     factory = RGeo::Geos.factory(srs_database: srs_database, srid: project.srid)
+
     if srs_database.get(project.srid).proj4.nil?
        raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
     end
 
     RGeo::Shapefile::Reader.open(path, factory: factory) do |file|
       file.each do |record|
-        cartesian_preferred_factory = Project.rgeo_factory_for_column(:point)
 
-        cartesian_cast = RGeo::Feature.cast(record.geometry, cartesian_preferred_factory, :project)
+        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
 
         item =  Item.new({
           name: record.attributes[project.metadata["name_column"]],
