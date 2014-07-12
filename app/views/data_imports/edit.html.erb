@@ -1,7 +1,5 @@
 <%= simple_form_for(@data_import) do |f| %>
 
-
-  <% require 'pry'; binding.pry %>
   <%= f.input :name_field, collection: @data_import.item_attributes %>
 
   <%= f.submit %>
