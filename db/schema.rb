@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712072208) do
+ActiveRecord::Schema.define(version: 20140712115904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,13 +20,21 @@ ActiveRecord::Schema.define(version: 20140712072208) do
   enable_extension "fuzzystrmatch"
   enable_extension "postgis_tiger_geocoder"
 
+  create_table "data_imports", force: true do |t|
+    t.integer  "project_id"
+    t.json     "field_mappings"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "items", force: true do |t|
     t.integer  "project_id"
     t.string   "name"
     t.json     "import_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "point",       limit: {:srid=>4326, :type=>"point"}
+    t.spatial  "point",          limit: {:srid=>4326, :type=>"point"}
+    t.integer  "data_import_id"
   end
 
   create_table "photos", force: true do |t|
@@ -50,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140712072208) do
     t.integer  "srid"
     t.string   "format"
     t.json     "metadata"
+    t.spatial  "boundary",        limit: {:srid=>4326, :type=>"multi_polygon"}
   end
 
   create_table "users", force: true do |t|

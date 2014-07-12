@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
   end
   resources :photos
+  resources :data_imports
 
   # Example resource route with sub-resources:
   #   resources :products do

@@ -1,7 +1,48 @@
-<h2>Setup Your Data</h2>
+<h2>Manage Your Data</h2>
 
 <p>Your url for your project is: <%= link_to(project_items_url(@project),project_items_url(@project)) %> share it with others to contribute</p>
 
-<p>Now you need to choose your columns from your data</p>
+<div class="column-group horizontal-gutters vertical-gutters">
+  <div class="all-80 push-center highlight">
+    <h3>Add a Data Source</h3>
 
-<a  href="<%= url_for(:controller => :items, :project_id => @project) %>" class="ink-button">Start adding photos</a>
+    <%= simple_form_for(DataImport.new(project_id: @project.id)) do |f| %>
+      <div class="control-group all-33">
+        <%= f.input :project_id, as: :hidden %>
+        <%= f.input :data_source_uri, label: 'Data Source URI' %>
+        <small class="pull-right">(csv w/coordinates, kml or shp)</small>
+      </div>
+      <div class="control-group all-33">
+        <div class="control">
+          <br>
+          <button class="ink-button">Upload</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="column-group horizontal-gutters vertical-gutters">
+  <div class="all-80 push-center highlight">
+    <h3>Affix a Geographic Boundary</h3>
+
+    <%= simple_form_for(DataImport.new(project_id: @project.id)) do |f| %>
+      <div class="control-group all-33">
+        <%= f.input :data_source_uri, label: 'Data Source URI' %>
+        <small class="pull-right">(csv w/coordinates, kml or shp)</small>
+      </div>
+      <div class="control-group all-33">
+        <div class="control">
+          <br>
+          <button class="ink-button">Upload</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<br />
+
+<p>
+  <a  href="<%= url_for(:controller => :items, :project_id => @project) %>" class="ink-button">Start adding photos</a>
+</p>

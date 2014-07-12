@@ -1,5 +1,6 @@
 require 'rgeo/shapefile'
 require 'geo_ruby/kml'  
+require 'zip'
 
 class KmlReader
 
