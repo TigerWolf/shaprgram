@@ -4,6 +4,11 @@ We love open data, because it lets you do neat things. The problem with open dat
 
 This application is aimed at government data producers who may not have the full resources of a geospatial team at their beck and call, who need to crowdsource information about their assets; and anyone that can benefit from visual imagery to supplement raw data.
 
+== GovHack
+
+This project is a #govhack 2014 project. Find out more about govhack at http://www.govhack.org/
+Check out our video at: http://hackerspace.govhack.org/content/shaprgram
+
 === Use cases
 
 
