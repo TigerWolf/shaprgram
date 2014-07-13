@@ -1,0 +1,11 @@
+server {
+  listen   80;
+  access_log  <%= node['nginx']['log_dir'] %>/shaprgram.access.log;
+
+  client_max_body_size 25M;
+
+  location / {
+    root   /srv/shaprgram/current/public;
+    passenger_enabled on;
+  }
+}
