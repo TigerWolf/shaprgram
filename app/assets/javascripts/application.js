@@ -21,41 +21,42 @@
 //= require jquery.dynatable
 //= require_tree .
 
-$(document).ready(function(){
-  $('.fotorama').on('fotorama:showend', function (e, fotorama, extra) {
-    var images = document.getElementsByTagName('img'), retinaImages = [], i, image;
-    for (i = 0; i < images.length; i += 1) {
-      image = images[i];
-      if (!!!image.getAttributeNode('data-no-retina')) {
-          retinaImages.push(new RetinaImage(image));
-      }
-    }
-  });
-
-
-  $( "#items-table" ).on( "click",".view-image", function(e) {
-    e.preventDefault();
-    //debugger;
-    id = $(this).data().id;
-    project_id = $(this).data().project_id; // $(this).data().id;
-    // Instead of going to json - get url from link??
-    // May need to use json for multiple images
-    $('#image').html(" ");
-    $.getJSON('/projects/'+project_id+'/items/'+id+'/photo_links.json', function( data ) {
-      $.each( data, function( i, item ) {
-        //if (data.photos) {
-          $( "<img>" ).attr( "src", item ).appendTo( "#image" );
-        //}
-      });
-
-      //console.log(data);
+$(document).ready(function () {
+    $('.fotorama').on('fotorama:showend', function (e, fotorama, extra) {
+        var images = document.getElementsByTagName('img'),
+            retinaImages = [],
+            i, image;
+        for (i = 0; i < images.length; i += 1) {
+            image = images[i];
+            if (!!!image.getAttributeNode('data-no-retina')) {
+                retinaImages.push(new RetinaImage(image));
+            }
+        }
     });
 
-    $.getJSON('/projects/'+project_id+'/items/'+id+'.geojson', function( data ) {
-      //debugger;
-      var map =  listApplication.map;
-      map.setView(data.coordinates, 17);
-      L.geoJson(data).addTo(map);
+    map = L.map('map');
+
+    map.setView([-35.30, 149.12], 4);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+
+    $("#items-table").on("click", ".view-image", function (e) {
+        e.preventDefault();
+        id = $(this).data().id;
+        project_id = $(this).data().project_id;
+        $('#image').html(" ");
+        $.getJSON('/projects/' + project_id + '/items/' + id + '/photo_links.json', function (data) {
+            $.each(data, function (i, item) {
+                $("<img>").attr("src", item).appendTo("#image");
+            });
+        });
+
+        $.getJSON('/projects/' + project_id + '/items/' + id + '.geojson', function (data) {
+            map.setView(data.coordinates, 15);
+            L.geoJson(data.properties).addTo(map);
+        });
     });
-  });
 });
