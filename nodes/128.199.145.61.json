@@ -2,7 +2,8 @@
   "run_list": [
     "role[server]",
     "role[db]",
-    "role[app]"
+    "role[app]",
+    "recipe[shaprgram]"
   ],
   "automatic": {
     "ipaddress": "128.199.145.61"
