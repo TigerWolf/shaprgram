@@ -12,17 +12,12 @@ class ReallySeedLocalCouncilAreas < ActiveRecord::Migration
       file.each do |record|
         count += 1
         puts count
-        r = AdministrativeBoundry.new(
+        AdministrativeBoundry.create(
           name: "#{record.attributes['LGA_NAME11']}",
-          description: "Local Government Area 2011 - #{record.attributes['LGA_NAME11']}"
+          description: "Local Government Area 2011 - #{record.attributes['LGA_NAME11']}",
+          area: RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
         )
-        cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
-        r.area = cartesian_cast
-        areas << r
       end
     end
-
-    AdministrativeBoundry.import areas
-
   end
 end
