@@ -64,7 +64,7 @@ private
       direction = " " + sort_direction(params[:sorts].values.first)
       params[:sorts].keys.first + direction
     else
-      "desc"
+      ""
     end
   end
 
