@@ -30,11 +30,11 @@ Just spent a few hard earned rate payer dollars on nice new benches? Use this to
 * Ruby 2.1.*+
 
 
+    gem install rgeo -- --with-geos-dir=/path/to/my/geos/installation
     bundle
+
     cp config/database.yml.sample config/database.yml
     bundle exec rake db:create
-    bundle exec rake db:gis:setup
     bundle exec rake db:migrate
-    bundle exec rake db:seed
     bundle exec rake fake:csv_project
     bundle exec rails s
