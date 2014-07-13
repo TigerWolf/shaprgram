@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
 
   def export
     project = Project.find(params[:id])
-    @items = project.items
+    @items = project.items.includes(:photos)
     respond_to do |format|
       format.json { render json: @items, include: :photos }
       format.xml { render xml: @items, include: :photos}
