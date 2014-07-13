@@ -65,8 +65,6 @@ $(document).ready(function () {
             //L.geoJson(data).addTo(map);
             L.marker(data.coordinates).addTo(map);
 
-            //debugger;
-
             window.location.href="#map";
         });
     });
