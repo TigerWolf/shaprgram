@@ -61,6 +61,8 @@ $(document).ready(function () {
         $.getJSON('/projects/' + project_id + '/items/' + id + '.geojson', function (data) {
             map.setView(data.coordinates, 15);
             L.geoJson(data.properties).addTo(map);
+
+            window.location.href="#map";
         });
     });
 });
