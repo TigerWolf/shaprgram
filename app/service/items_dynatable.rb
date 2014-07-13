@@ -1,5 +1,5 @@
 class ItemsDynatable
-  delegate :params, :h, :link_to, :number_to_currency, :simple_form_for, :project_item_path, to: :@view
+  delegate :params, :h, :link_to, :simple_form_for, :project_item_path, to: :@view
 
   def initialize(view, data)
     @view = view
@@ -18,10 +18,10 @@ private
 
   def data
     items.map do |item|
+      # TODO: Move to view
       form = simple_form_for(Photo.new(item_id: item.id)) { |f|
         a = "<div class='fileUpload'>";
         a+=f.input :item_id, as: :hidden
-        # a+="<span class='ink-button half-horizontal-space orange'>Upload</span>"
         a+=f.file_field :image, :class => 'upload'
         a+=f.submit value: 'Save', :class => 'ink-button green'
         a+="</div>"
@@ -45,7 +45,7 @@ private
     items = @data.order("#{sort_column}")
     items = items.page(page).per(per_page)
     if params[:queries].present?
-      items = items.where("name like :search", search: "%#{params[:queries][:search]}%") # or category like :search
+      items = items.where("name like :search", search: "%#{params[:queries][:search]}%")
     end
     items
   end
@@ -69,6 +69,7 @@ private
   end
 
   def sort_direction(num = "1")
+    # 1 for desc, -1 for asc and other value.
     num == "1" ? "desc" : "asc"
   end
 end
