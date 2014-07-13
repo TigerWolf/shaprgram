@@ -31,7 +31,7 @@ private
         "name" => item.name,
         "point" => "<i class='fa fa-globe tooltip' title='#{item.nice_point}'></i>",
         "photos" => item.photos.count,
-        "actions" => (item.photos.count > 0 ? link_to('View', project_item_path(item.project, item), :class => 'view-image ink-button align-right blue', :"data-id" => item.id, :"data-project_id" => item.project.id ) : "" ),
+        "actions" => link_to('View', project_item_path(item.project, item), :class => 'view-image ink-button align-right blue', :"data-id" => item.id, :"data-project_id" => item.project.id ) ,
         "upload" => form
       }
     end

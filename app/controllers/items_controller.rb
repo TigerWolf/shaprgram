@@ -23,7 +23,8 @@ class ItemsController < ApplicationController
       format.geojson do
         payload = RGeo::GeoJSON.encode(@item.point)
         payload[:properties] = @item.import_data
-
+        # Hack - fix this after the weekend
+        payload['coordinates'].reverse!
         render json: payload
       end
     end
