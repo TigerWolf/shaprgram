@@ -1,0 +1,10 @@
+{
+  "run_list": [
+    "role[server]",
+    "role[db]",
+    "role[app]"
+  ],
+  "automatic": {
+    "ipaddress": "128.199.145.61"
+  }
+}
