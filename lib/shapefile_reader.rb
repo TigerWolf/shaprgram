@@ -55,6 +55,17 @@ class ShapefileReader
     srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
     factory = RGeo::Geos.factory(srs_database: srs_database, srid: data_import.srid)
 
+
+    # lat, lng = -73.700666, 45.528719
+    
+    # srid = new_crs_srid = 32188
+    # proj4 = new_crs_proj4 = "+proj=tmerc +lat_0=0 +lon_0=-73.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs " ##obtained from spatialreference.org
+    # f = new_crs_factory = RGeo::Geographic.projected_factory(:projection_proj4 => proj4, :projection_srid => srid)
+    # geom_shape_32188 = f.parse_wkt("POINT (#{lng} #{lat})").projection
+
+    # require 'pry'
+    # binding.pry
+
     # if srs_database.get(data_import.srid).proj4.nil?
     #   raise "It looks like you are affected by https://trello.com/c/h4ZMfLC8/46-bug-todo-convert-between-srids-prior-to-postgis"
     # end

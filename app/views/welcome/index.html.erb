@@ -31,7 +31,7 @@
   <div class="all-80 push-center highlight">
 
     <h4 class="col-md-offset-2">New Project</h4>
-    <%= form_for @project, :html => { :class => 'ink-form'} do |f| %>
+    <%= simple_form_for @project, :html => { :class => 'ink-form'} do |f| %>
       <div class="column-group gutters">
 
         <div class="control-group all-33">
@@ -41,11 +41,7 @@
           </div>
         </div>
         <div class="control-group all-33">
-          <%= f.label :data_source_uri, "URL" %>
-          <div class="control">
-            <input type="text" name="data_source_uri" title="Paste a URL from data.gov.au or similar directly to your resource" value="http://opendata.adelaidecitycouncil.com/seats/seats.csv" />
-          </div>
-          <small class="pull-right">(csv w/coordinates or shp)</small>
+          <%= f.input :administrative_boundry_id, collection: AdministrativeBoundry.all.order(:name), label: 'Local Council Area (if relevant)' %>
         </div>
         <div class="control-group all-33">
           <div class="control">
