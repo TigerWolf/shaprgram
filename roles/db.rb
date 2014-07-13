@@ -43,4 +43,4 @@ override_attributes({
   }
 })
 
-run_list  'role[server]', 'recipe[postgresql::yum_pgdg_postgresql]', 'recipe[postgresql::server]', 'recipe[postgresql::config_pgtune]', 'recipe[sysctl::default]', 'recipe[postgres]'
+run_list  'role[server]', 'recipe[postgresql::yum_pgdg_postgresql]', 'recipe[postgresql::server]', 'recipe[postgresql::config_pgtune]', 'recipe[sysctl::default]'
