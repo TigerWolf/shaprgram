@@ -34,6 +34,7 @@ $(document).ready(function () {
         }
     });
 
+    // Global
     map = L.map('map');
 
     map.setView([-35.30, 149.12], 4);
@@ -49,8 +50,9 @@ $(document).ready(function () {
 
     $("#items-table").on("click", ".view-image", function (e) {
         e.preventDefault();
-        id = $(this).data().id;
-        project_id = $(this).data().project_id;
+        var id = $(this).data().id;
+        var project_id = $(this).data().project_id;
+
         $('#image').html(" ");
         $.getJSON('/projects/' + project_id + '/items/' + id + '/photo_links.json', function (data) {
             $.each(data, function (i, item) {
@@ -60,7 +62,10 @@ $(document).ready(function () {
 
         $.getJSON('/projects/' + project_id + '/items/' + id + '.geojson', function (data) {
             map.setView(data.coordinates, 15);
-            L.geoJson(data).addTo(map);
+            //L.geoJson(data).addTo(map);
+            L.marker(data.coordinates).addTo(map);
+
+            //debugger;
 
             window.location.href="#map";
         });
