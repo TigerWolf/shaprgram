@@ -53,8 +53,8 @@
     <%= simple_form_for(DataImport.new(project_id: @project.id)) do |f| %>
       <div class="control-group all-33">
         <%= f.input :project_id, as: :hidden %>
-        <%= f.input :data_source_uri, label: 'Data Source URI', placeholder: 'http://...' %>
-        <small class="pull-left">(csv w/coordinates, kml or shp)</small>
+        <%= f.input :data_source_uri, label: 'Data Source URI', placeholder: 'http://...', value: "http://opendata.adelaidecitycouncil.com/street_trees/street%20trees-point.kmz" %>
+        <small class="pull-left">(csv w/coordinates, kml or shp as WSG84)</small>
       </div>
       <div class="control-group all-33" style='clear:left;'>
         <div class="control">
@@ -73,7 +73,7 @@
     <%= simple_form_for(@project) do |f| %>
       <p>
         <%= f.input :administrative_boundry_id, collection: AdministrativeBoundry.all.order(:name) %>
-        <small>(csv w/coordinates, kml or shp)</small>
+        <small>(csv w/coordinates, kml or shp as WSG84)</small>
       </p>
 
       <p class="">
