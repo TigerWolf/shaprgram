@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :projects do
     member do
       get 'list'
+      get :export, :defaults => { :format => 'json' }
     end
     resources :items do
       get :near_me, on: :collection

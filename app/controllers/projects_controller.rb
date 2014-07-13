@@ -27,7 +27,17 @@ class ProjectsController < ApplicationController
 
     redirect_to :back
   end
-  
+
+  def export
+    project = Project.find(params[:id])
+    @items = project.items
+    respond_to do |format|
+      format.json { render json: @items, include: :photos }
+      format.xml { render xml: @items, include: :photos}
+      format.csv { render csv: @items, include: :photos}
+    end
+  end
+
   private
 
     def project_params
