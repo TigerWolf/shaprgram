@@ -2,16 +2,19 @@ class DataImporter
 
   def initialize(data_import)
     @data_import = data_import
+    @uri = URI(@data_import.data_source_uri)
   end
 
+  #
+  # Based on the data_import configuration, fetch
+  # the raw content via http and dump it into a Tempfile.
+  #
+  # TODO Multiple protocols
+  #
   def fetch
-  end
-
-  # TODO: Sidekiq this!
-  def import
     require 'net/http'
-    uri = URI(@data_import.data_source_uri)
-    response = Net::HTTP.get_response(uri)
+    
+    response = Net::HTTP.get_response(@uri)
 
     tempfile_name = 'shapefile'
     tempfile_extension = '.shp'
@@ -29,11 +32,22 @@ class DataImporter
       temp_file.close
     end
 
-    case response.uri.request_uri
+    temp_file
+  end
+
+  #
+  # Choose an appropriate strategy to import a file with, and 
+  # to populate the metadata.
+  #
+  # TODO: Sidekiq this!
+  # TODO: Automatic shapefile SRID guessing.
+  #
+  def import(path)
+    case @uri.request_uri
     when /.km(l|z)$/
-      KmlReader.new(Rails.logger).parse(temp_file.path, @data_import)
+      KmlReader.new(Rails.logger).parse(path, @data_import)
     when /.csv$/
-      CsvReader.new(Rails.logger).parse(temp_file.path, @data_import)
+      CsvReader.new(Rails.logger).parse(path, @data_import)
     when /.zip$/
       reader = ShapefileReader.new(Rails.logger)
       path = reader.unzippify!(temp_file.path)

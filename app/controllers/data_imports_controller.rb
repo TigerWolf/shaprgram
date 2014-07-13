@@ -7,7 +7,8 @@ class DataImportsController < ApplicationController
       if @data_import.save
 
         worker = DataImporter.new(@data_import)
-        worker.import
+        path = worker.fetch
+        worker.import(path)
 
 
         format.html { redirect_to edit_data_import_path(@data_import), notice: 'Data Import was successfully created.' }
