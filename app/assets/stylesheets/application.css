@@ -34,20 +34,24 @@ border-radius: 2px;
 }
 
 
-.fileUpload {
-  position: relative;
-  overflow: hidden;
-}
-.fileUpload input.upload {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0;
-  filter: alpha(opacity=0);
+#data_import_data_source_uri { width: 150%; }
+
+.tooltip{
+    display: inline;
+    position: relative;
 }
 
-#data_import_data_source_uri { width: 150%; }
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
