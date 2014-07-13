@@ -26,6 +26,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'delayed_paperclip'
 gem 'activerecord-import'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-rails'
