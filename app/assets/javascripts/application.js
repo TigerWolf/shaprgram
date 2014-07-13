@@ -38,10 +38,14 @@ $(document).ready(function () {
 
     map.setView([-35.30, 149.12], 4);
 
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/doconnor.ionk423c/{z}/{x}/{y}.png', {
+        attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+    }).addTo(map);
+/*
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
+*/
 
     $("#items-table").on("click", ".view-image", function (e) {
         e.preventDefault();
