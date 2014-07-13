@@ -1,12 +1,23 @@
 <h1><%= @project.name %></h1>
 
-<h2>Manage Your Data</h2>
 
-<p>Your url for your project is: <%= link_to(project_items_url(@project),project_items_url(@project)) %> share it with others to contribute</p>
 
 <div class="column-group horizontal-gutters vertical-gutters">
   <div class="all-80 push-center highlight">
       
+    <h2>Manage Your Data</h2>
+    <p>Your url for your project is:<br />
+    <span style="font-size: 150%"><%= link_to(project_items_url(@project),project_items_url(@project)) %></span><br />
+    When you are ready, share this with your collaborators to crowdsource photos!</p>
+
+    <% unless @project.data_imports.try(:first).try(:name_field) %>
+      <div class="ink-alert info" role="alert">
+        <h4>Get started</h4>
+        <p>Looks like you'll want to describe your data a little</p>
+        <p>Let's start to <%= link_to 'Map Data Fields', edit_data_import_path(import) %></p>
+      </div>
+    <% end %>
+
     <% if @project.data_imports.count > 0 %>
       <h3>Current Data Sources</h3>
 
