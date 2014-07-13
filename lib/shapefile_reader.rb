@@ -57,7 +57,7 @@ class ShapefileReader
 
 
     # lat, lng = -73.700666, 45.528719
-    
+
     # srid = new_crs_srid = 32188
     # proj4 = new_crs_proj4 = "+proj=tmerc +lat_0=0 +lon_0=-73.5 +k=0.9999 +x_0=304800 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs " ##obtained from spatialreference.org
     # f = new_crs_factory = RGeo::Geographic.projected_factory(:projection_proj4 => proj4, :projection_srid => srid)
@@ -76,8 +76,7 @@ class ShapefileReader
       file.each do |record|
 
         cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
-
-        puts cartesian_cast
+        cartesian_cast = cartesian_cast.factory.point(cartesian_cast.lon - 0.001357816, cartesian_cast.lat  - 0.1796842886)
 
         if data_import.project.administrative_boundry
           next unless data_import.project.administrative_boundry.area.contains?(cartesian_cast)
