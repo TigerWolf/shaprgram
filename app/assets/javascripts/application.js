@@ -50,6 +50,10 @@ $(document).ready(function(){
 
       //console.log(data);
     });
-    // console.log(e.data());
+
+    $.getJSON('/projects/'+project_id+'/items/'+id+'.geojson', function( data ) {
+      //debugger;
+      listApplication.map.setView(data.coordinates, 17);
+    });
   });
 });
