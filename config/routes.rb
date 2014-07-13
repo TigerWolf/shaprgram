@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     resources :items do
       get :near_me, on: :collection
+      get :photo_links
     end
   end
   resources :photos

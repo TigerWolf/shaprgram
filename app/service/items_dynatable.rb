@@ -31,7 +31,7 @@ private
         "name" => item.name,
         "point" => item.nice_point,
         "photos" => item.photos.count,
-        "actions" => (item.photos.count > 0 ? link_to('View', project_item_path(item.project, item), :class => 'view-image ink-button', :"data-id" => item.id ) : "" ),
+        "actions" => (item.photos.count > 0 ? link_to('View', project_item_path(item.project, item), :class => 'view-image ink-button align-right', :"data-id" => item.id, :"data-project_id" => item.project.id ) : "" ),
         "upload" => form
       }
     end
