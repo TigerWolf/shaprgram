@@ -51,7 +51,7 @@ private
   end
 
   def page
-    params[:page] #.to_i/per_page + 1
+    params[:page]
   end
 
   def per_page
@@ -59,12 +59,16 @@ private
   end
 
   def sort_column
-    columns = %w[name]
-    columns.first
-    #columns[params[:iSortCol_0].to_i]
+    columns = %w[name point]
+    if params[:sorts].present? && columns.include?( params[:sorts].keys.first )
+      direction = " " + sort_direction(params[:sorts].values.first)
+      params[:sorts].keys.first + direction
+    else
+      "desc"
+    end
   end
 
-  def sort_direction
-    nil == "desc" ? "desc" : "asc"
+  def sort_direction(num = "1")
+    num == "1" ? "desc" : "asc"
   end
 end
