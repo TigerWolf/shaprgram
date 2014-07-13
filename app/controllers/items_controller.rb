@@ -36,6 +36,18 @@ class ItemsController < ApplicationController
     end
   end
 
+  def photo_links
+    photos = {}
+    @item = @project.items.find(params[:item_id]).photos.each do |photo|
+      if photo.is_video?
+        photos[photo.id] = link_to 'video', photo.video_url
+      else
+        photos[photo.id] = photo.image.url(:large)
+      end
+    end
+    render :json => photos
+  end
+
   private
 
     def find_project

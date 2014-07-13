@@ -37,7 +37,6 @@ border-radius: 2px;
 .fileUpload {
   position: relative;
   overflow: hidden;
-  margin: 10px;
 }
 .fileUpload input.upload {
   position: absolute;

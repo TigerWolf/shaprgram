@@ -37,16 +37,16 @@ $(document).ready(function(){
     e.preventDefault();
     //debugger;
     id = $(this).data().id;
+    project_id = $(this).data().project_id; // $(this).data().id;
     // Instead of going to json - get url from link??
     // May need to use json for multiple images
-
-    $.getJSON('/projects/7/items/'+id+'.json', function( data ) {
-      // $.each( data.items, function( i, item ) {
-        debugger;
-        if (data.photos) {
-          $( "<img>" ).attr( "src", '/system/photos/'+data.photos[0].id+'/'+data.photos[0].image_file_name ).appendTo( "#images" );
-        }
-      //});
+    $('#image').html(" ");
+    $.getJSON('/projects/'+project_id+'/items/'+id+'/photo_links.json', function( data ) {
+      $.each( data, function( i, item ) {
+        //if (data.photos) {
+          $( "<img>" ).attr( "src", item ).appendTo( "#image" );
+        //}
+      });
 
       //console.log(data);
     });

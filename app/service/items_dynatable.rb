@@ -21,7 +21,7 @@ private
       form = simple_form_for(Photo.new(item_id: item.id)) { |f|
         a = "<div class='fileUpload'>";
         a+=f.input :item_id, as: :hidden
-        a+="<span class='ink-button'>Upload</span>"
+        a+="<span class='ink-button half-horizontal-space'>Upload</span>"
         a+=f.file_field :image, :class => 'upload'
         a+=f.submit value: 'Save', :class => 'ink-button'
         a+="</div>"
@@ -31,7 +31,7 @@ private
         "name" => item.name,
         "point" => item.nice_point,
         "photos" => item.photos.count,
-        "actions" => link_to('View', project_item_path(item.project, item), :class => 'view-image', :"data-id" => item.id ),
+        "actions" => (item.photos.count > 0 ? link_to('View', project_item_path(item.project, item), :class => 'view-image ink-button align-right', :"data-id" => item.id, :"data-project_id" => item.project.id ) : "" ),
         "upload" => form
       }
     end
@@ -42,7 +42,7 @@ private
   end
 
   def fetch_items
-    items = @data.order("#{sort_column} #{sort_direction}")
+    items = @data.order("#{sort_column}")
     items = items.page(page).per(per_page)
     if params[:queries].present?
       items = items.where("name like :search", search: "%#{params[:queries][:search]}%") # or category like :search
@@ -51,7 +51,7 @@ private
   end
 
   def page
-    params[:page] #.to_i/per_page + 1
+    params[:page]
   end
 
   def per_page
@@ -59,12 +59,16 @@ private
   end
 
   def sort_column
-    columns = %w[name]
-    columns.first
-    #columns[params[:iSortCol_0].to_i]
+    columns = %w[name point]
+    if params[:sorts].present? && columns.include?( params[:sorts].keys.first )
+      direction = " " + sort_direction(params[:sorts].values.first)
+      params[:sorts].keys.first + direction
+    else
+      "desc"
+    end
   end
 
-  def sort_direction
-    nil == "desc" ? "desc" : "asc"
+  def sort_direction(num = "1")
+    num == "1" ? "desc" : "asc"
   end
 end
