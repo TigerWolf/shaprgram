@@ -5,6 +5,11 @@ class DataImportsController < ApplicationController
 
     respond_to do |format|
       if @data_import.save
+
+        worker = DataImporter.new(@data_import)
+        worker.import
+
+
         format.html { redirect_to edit_data_import_path(@data_import), notice: 'Data Import was successfully created.' }
         format.json { render :show, status: :created, location: @data_import }
       else

@@ -3,7 +3,6 @@ class DataImport < ActiveRecord::Base
   belongs_to :project
   has_many :items
 
-  after_create :import_data
   after_update :update_names
 
   validate :project_id, :data_source_uri, presence: true
@@ -41,40 +40,6 @@ class DataImport < ActiveRecord::Base
 
   def update_names
     items.each { |i| i.update_attribute(:name, i.import_data[name_field]) }
-  end
-
-  # TODO: Sidekiq this!
-  def import_data
-    require 'net/http'
-    uri = URI(data_source_uri)
-    response = Net::HTTP.get_response(uri)
-
-    tempfile_name = 'shapefile'
-    tempfile_extension = '.shp'
-    if response.uri.request_uri =~ /.kmz$/
-      tempfile_extension = '.kmz'
-    end
-
-    begin
-      temp_file = Tempfile.new([tempfile_name, tempfile_extension])
-      temp_file.write(response.body)
-      temp_file.close
-    rescue Encoding::UndefinedConversionError
-      temp_file = Tempfile.new([tempfile_name, tempfile_extension], :encoding => 'ascii-8bit')
-      temp_file.write(response.body)
-      temp_file.close
-    end
-
-    case response.uri.request_uri
-    when /.km(l|z)$/
-      KmlReader.new(Rails.logger).parse(temp_file.path, self)
-    when /.csv$/
-      CsvReader.new(Rails.logger).parse(temp_file.path, self)
-    when /.zip$/
-      reader = ShapefileReader.new(Rails.logger)
-      path = reader.unzippify!(temp_file.path)
-      reader.parse(path, self)
-    end
   end
 
 end
