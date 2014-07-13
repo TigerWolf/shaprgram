@@ -53,7 +53,9 @@ $(document).ready(function(){
 
     $.getJSON('/projects/'+project_id+'/items/'+id+'.geojson', function( data ) {
       //debugger;
-      listApplication.map.setView(data.coordinates, 17);
+      var map =  listApplication.map;
+      map.setView(data.coordinates, 17);
+      L.geoJson(data).addTo(map);
     });
   });
 });
