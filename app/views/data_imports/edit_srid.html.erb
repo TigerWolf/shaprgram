@@ -1,11 +1,18 @@
+
+<div class="ink-alert info" role="alert">
+  <h4>Update the <abbr title="Spatial Reference ID">SRID</abbr></h4>
+  <p>Spatial data falls into two categories: geography (where the world is a globe) or geometry (where the world is a flat grid). Find out more <a href="http://en.wikipedia.org/wiki/SRID">about SRIDs</a>.</p>
+  <p></p>
+</div>
+
 <%= simple_form_for(@data_import) do |f| %>
 
-  <%= f.input :srid %>
+  <p><%= f.input :srid %></p>
 
-  <%= f.submit %>
+  <p><%= f.submit :submit, class: "ink-button blue" %></p>
 
 <% end %>
 
 <p>
-<b>Protip</b>: Common SRID's worth trying are 4326, 28356, 3107, 28355 add to this list...
+<b>Protip</b>: Common SRID's worth trying are <a href="http://spatialreference.org/ref/epsg/4326/" target="_blank">4326 (WSG84)</a>, <a href="http://spatialreference.org/ref/epsg/28356/" target="_blank">28356 (GDA94 / MGA zone 56)</a>, <a href="http://spatialreference.org/ref/epsg/3107/" target="_blank">3107 (GDA94 SA Lambert)</a>, <a href="http://spatialreference.org/ref/epsg/28355/" target="_blank">28355 (GDA94 / MGA zone 55)</a>... alternatively, check out <a href="http://spatialreference.org/" target="_blank">http://spatialreference.org/</a> to search for your own.
 </p>

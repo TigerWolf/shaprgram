@@ -56,6 +56,6 @@ border-radius: 2px;
 }
 
 
-label.select {
+.simple_form label {
     display: block;
 }
