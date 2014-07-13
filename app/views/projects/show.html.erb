@@ -59,7 +59,7 @@
       <div class="control-group all-33" style='clear:left;'>
         <div class="control">
           <br>
-          <button class="ink-button">Import Data Set</button>
+          <button class="ink-button blue">Import Data Set</button>
         </div>
       </div>
     <% end %>
@@ -71,22 +71,16 @@
     <h4>Modify Geographic Boundary</h4>
 
     <%= simple_form_for(@project) do |f| %>
-      <div class="control-group all-33">
+      <p>
         <%= f.input :administrative_boundry_id, collection: AdministrativeBoundry.all.order(:name) %>
-        <small class="pull-right">(csv w/coordinates, kml or shp)</small>
-      </div>
-      <div class="control-group all-33">
+        <small>(csv w/coordinates, kml or shp)</small>
+      </p>
+
+      <p class="">
         <div class="control">
-          <br>
-          <button class="ink-button">Update</button>
+          <button class="ink-button blue">Update</button>
         </div>
-      </div>
+      </p>
     <% end %>
   </div>
 </div>
-
-<br />
-
-<p>
-  <a  href="<%= url_for(:controller => :items, :project_id => @project) %>" class="ink-button">Start adding photos</a>
-</p>
