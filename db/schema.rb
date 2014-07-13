@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712020344) do
+ActiveRecord::Schema.define(version: 20140712174143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,14 @@ ActiveRecord::Schema.define(version: 20140712020344) do
   add_index "addrfeat", ["tlid"], :name => "idx_addrfeat_tlid"
   add_index "addrfeat", ["zipl"], :name => "idx_addrfeat_zipl"
   add_index "addrfeat", ["zipr"], :name => "idx_addrfeat_zipr"
+
+  create_table "administrative_boundries", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.spatial  "area",        limit: {:srid=>4326, :type=>"multi_polygon"}
+  end
 
   create_table "bg", id: false, force: true do |t|
     t.integer "gid",                                                    default: "nextval('bg_gid_seq'::regclass)", null: false
@@ -158,6 +166,16 @@ ActiveRecord::Schema.define(version: 20140712020344) do
 
   add_index "cousub", ["gid"], :name => "uidx_cousub_gid", :unique => true
   add_index "cousub", ["the_geom"], :name => "tige_cousub_the_geom_gist", :spatial => true
+
+  create_table "data_imports", force: true do |t|
+    t.integer  "project_id"
+    t.json     "field_mappings"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "data_source_uri"
+    t.integer  "srid"
+    t.string   "name_field"
+  end
 
   create_table "direction_lookup", id: false, force: true do |t|
     t.string "name",   limit: 20, null: false
@@ -319,7 +337,8 @@ ActiveRecord::Schema.define(version: 20140712020344) do
     t.json     "import_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "point",       limit: {:srid=>0, :type=>"point"}
+    t.spatial  "point",          limit: {:srid=>0, :type=>"point"}
+    t.integer  "data_import_id"
   end
 
   create_table "loader_lookuptables", id: false, force: true do |t|
@@ -388,6 +407,7 @@ ActiveRecord::Schema.define(version: 20140712020344) do
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.string   "image_file_size"
+    t.string   "video_url"
   end
 
   create_table "place", id: false, force: true do |t|
@@ -432,6 +452,11 @@ ActiveRecord::Schema.define(version: 20140712020344) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "srid"
+    t.string   "format"
+    t.json     "metadata"
+    t.spatial  "boundary",                  limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.integer  "administrative_boundry_id"
   end
 
   create_table "secondary_unit_lookup", id: false, force: true do |t|

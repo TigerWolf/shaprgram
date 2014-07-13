@@ -6,10 +6,19 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :projects do
-     member do
-       get 'list'
-     end
-   end
+    member do
+      get 'list'
+    end
+    resources :items do
+      get :near_me, on: :collection
+      get :photo_links
+    end
+  end
+  resources :photos
+  resources :data_imports do
+    post :re_import, on: :member
+    get :edit_srid, on: :member
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

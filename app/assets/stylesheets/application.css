@@ -9,12 +9,53 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  * = require leaflet
+ * = require fotorama
+ * = require jquery.dynatable
+ * = require ink
+ * = require ink-flex
+ * = require font-awesome
+ * = require welcome
+ * = require projects
  */
 /*@import "bootstrap-sprockets";
 @import "bootstrap";*/
-@import "ink";
-@import "ink-flexbox";
-@import "font-awesome";
 
-@import "welcome";
-@import "projects";
+.highlight {
+padding: 1em;
+background: #eeebe5;
+margin-bottom: 1.5em;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+}
+
+
+.ink-table thead tr {
+  background: #000;
+}
+
+
+#data_import_data_source_uri { width: 150%; }
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
+
+.simple_form label {
+    display: block;
+}

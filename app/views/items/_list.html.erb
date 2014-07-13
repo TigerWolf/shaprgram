@@ -1,0 +1,21 @@
+
+<table class="ink-table items alternating hover " id="items-table">
+  <thead>
+      <th>Name</th>
+      <th>Point</th>
+      <th>Photos</th>
+      <th>Actions</th>
+      <th>Upload</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script>$('.items').dynatable({
+  dataset: {
+    ajax: true,
+    ajaxUrl: '<%=project_items_url %>.json',
+    ajaxOnLoad: true,
+    records: []
+  }
+});
+</script>

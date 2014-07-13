@@ -1,0 +1,15 @@
+
+<div class="ink-alert info" role="alert">
+  <h4>Describe your Data</h4>
+  <p>Spatial data is handy, but not always great for humans. Use the <strong>name</strong> control to pick a human friendly label for the items in your data set.</p>
+
+  <!--p>Edit the project description to add guidelines or hints for your data collectors</p-->
+</div>
+
+<%= simple_form_for(@data_import) do |f| %>
+
+  <p><%= f.input :name_field, collection: @data_import.item_attributes %></p>
+
+  <p><%= f.submit "Update", class: "ink-button blue" %></p>
+
+<% end %>

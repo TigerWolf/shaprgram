@@ -3,7 +3,7 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
       t.integer :project_id
       t.string :name
-      t.point :point
+      t.point :point, srid: 4326
       t.json :import_data
 
       t.timestamps
