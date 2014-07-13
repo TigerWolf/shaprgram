@@ -76,7 +76,7 @@ class ShapefileReader
       file.each do |record|
 
         cartesian_cast = RGeo::Feature.cast(record.geometry, wgs84_factory, :project)
-        cartesian_cast = cartesian_cast.factory.point(cartesian_cast.lon - 0.001357816, cartesian_cast.lat  - 0.1796842886)
+        cartesian_cast = cartesian_cast.factory.point(cartesian_cast.lon, cartesian_cast.lat  - 0.1785391886)
 
         if data_import.project.administrative_boundry
           next unless data_import.project.administrative_boundry.area.contains?(cartesian_cast)
