@@ -13,7 +13,7 @@ class Item < ActiveRecord::Base
   belongs_to :data_import
   has_many   :photos
 
-  validates :project_id, :name, presence: true
+  validates :project_id, :name, :point, presence: true
 
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
 
