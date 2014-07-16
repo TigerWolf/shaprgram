@@ -1,14 +1,11 @@
 class ProjectsController < ApplicationController
-  def list
-    @project = Project.new
-  end
 
   def index
     @projects = Project.all
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = find_project
   end
 
   def create
@@ -18,7 +15,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    project = Project.find(params[:id])
+    project = find_project
     if project.update_attributes(project_params)
       flash[:notice] = 'Project updated.'
     else
@@ -29,7 +26,7 @@ class ProjectsController < ApplicationController
   end
 
   def export
-    project = Project.find(params[:id])
+    project = find_project
     @items = project.items.includes(:photos)
     respond_to do |format|
       format.json { render json: @items, include: :photos }
@@ -43,5 +40,10 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name, :data_source_uri, :administrative_boundry_id)
     end
+
+    def find_project
+      Project.find(params[:id])
+    end
+
 
 end
