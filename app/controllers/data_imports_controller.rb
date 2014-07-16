@@ -10,7 +10,6 @@ class DataImportsController < ApplicationController
         path = worker.fetch
         worker.import(path)
 
-
         format.html { redirect_to edit_data_import_path(@data_import), notice: 'Data Import was successfully created.' }
         format.json { render :show, status: :created, location: @data_import }
       else
@@ -45,7 +44,9 @@ class DataImportsController < ApplicationController
   def re_import
     @data_import = DataImport.find(params[:id])
     @data_import.items.destroy_all
-    @data_import.import_data
+    worker = DataImporter.new(@data_import)
+    path = worker.fetch
+    worker.import(path)
     redirect_to :back, notice: 'Re Imported.'
   end
 
