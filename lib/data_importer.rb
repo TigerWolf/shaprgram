@@ -16,11 +16,8 @@ class DataImporter
     
     response = Net::HTTP.get_response(@uri)
 
-    tempfile_name = 'shapefile'
-    tempfile_extension = '.shp'
-    if response.uri.request_uri =~ /.kmz$/
-      tempfile_extension = '.kmz'
-    end
+    tempfile_name = 'spatialimport'
+    tempfile_extension = File.extname(response.uri.to_s)
 
     begin
       temp_file = Tempfile.new([tempfile_name, tempfile_extension])
@@ -44,14 +41,13 @@ class DataImporter
   #
   def import(path)
     case @uri.request_uri
-    when /.km(l|z)$/
-      KmlReader.new(Rails.logger).parse(path, @data_import)
     when /.csv$/
       CsvReader.new(Rails.logger).parse(path, @data_import)
-    when /.zip$/
-      reader = ShapefileReader.new(Rails.logger)
-      path = reader.unzippify!(temp_file.path)
-      reader.parse(path, @data_import)
+    else
+      new_path = ShapeConverter.convert_to_4326(path)
+      reader = ShapeConverter.new(Rails.logger)
+      reader.parse(new_path, @data_import)
     end
   end
+
 end

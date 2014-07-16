@@ -2,6 +2,7 @@ require 'rgeo/shapefile'
 require 'fileutils'
 require 'zip'
 
+# Redundant now, use shape converter.
 class ShapefileReader
 
   def initialize(logger)
@@ -33,20 +34,6 @@ class ShapefileReader
 
     @factory ||= wgs84_factory = RGeo::Geographic.spherical_factory(srid: 4326)
   end
-
-  def unzippify!(path)
-
-    Zip::File.open(path) do |zip_file|
-      zip_file.each do |entry|
-        # Extract to file/directory/symlink
-        logger.info("Extracting #{entry.name} to #{temp_path}/#{entry.name}")
-        entry.extract("#{temp_path}/#{entry.name}")
-      end
-    end
-
-    Dir["#{temp_path}/*.shp"].first
-  end
-
 
   # How to handle SRID??
 
