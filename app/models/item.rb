@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
 
- module Factories
+  module Factories
     GEO = RGeo::Geographic.simple_mercator_factory
     PROJECTED = GEO.projection_factory
   end
