@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140712174143) do
   enable_extension "postgis_topology"
   enable_extension "fuzzystrmatch"
   enable_extension "postgis_tiger_geocoder"
+  #disable_extension "postgis_tiger_geocoder" # If RSPEC failed, uncomment this lime temporarily.
 
   create_table "addr", primary_key: "gid", force: true do |t|
     t.integer "tlid",      limit: 8

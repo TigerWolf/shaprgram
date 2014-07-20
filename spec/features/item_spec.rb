@@ -1,7 +1,7 @@
 require "rails_helper"
 
-Rspec.describe Item, :type => :feature do
-  it "check" do
-    expect(true).to be_true
+RSpec.describe Item, :type => :feature do
+  it "without any arguments" do
+    expect(subject).to be_invalid
   end
 end
