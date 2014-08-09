@@ -17,10 +17,6 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
 
-  def description
-    'lalala'
-  end
-
   def nice_point
     "#{point.x} #{point.y}" if point
   end

@@ -1,13 +1,11 @@
 <h1><%= @project.name %></h1>
 
-
-
 <div class="column-group horizontal-gutters vertical-gutters">
   <div class="all-80 push-center highlight">
-      
+
     <h2>Manage Your Data</h2>
     <p>Your url for your project is:<br />
-    <span style="font-size: 150%"><%= link_to(project_items_url(@project),project_items_url(@project)) %></span><br />
+    <h3><%= link_to(project_items_url(@project),project_items_url(@project)) %></h3>
     When you are ready, share this with your collaborators to crowdsource photos!</p>
 
     <% if @project.data_imports.count > 0 %>
@@ -19,7 +17,6 @@
           <p>Let's start to <%= link_to 'Map Data Fields', edit_data_import_path(@project.data_imports.first) %></p>
         </div>
       <% end %>
-      
 
       <table class='ink-table'>
         <thead>
@@ -29,7 +26,7 @@
             <th>Items</th>
             <th>Actions</th>
           </tr>
-        </thead>  
+        </thead>
         <tbody>
           <% @project.data_imports.order(:id).each do |import| %>
             <tr>
@@ -50,11 +47,13 @@
 
     <h3>Add Data Sources</h3>
 
-    <%= simple_form_for(DataImport.new(project_id: @project.id)) do |f| %>
+    <%= simple_form_for(DataImport.new(project_id: @project.id), html: { class: "ink-form" }) do |f| %>
       <div class="control-group all-33">
-        <%= f.input :project_id, as: :hidden %>
-        <%= f.input :data_source_uri, label: 'Data Source URI', placeholder: 'http://...', value: "http://opendata.adelaidecitycouncil.com/street_trees/street%20trees-point.kmz" %>
-        <small class="pull-left">(csv w/coordinates, kml or shp as WSG84). Not sure? <a href="http://opendata.adelaidecitycouncil.com/street_trees/street%20trees-point.kmz">Copy this link</a></small>
+        <div class="control">
+          <%= f.hidden_field :project_id %>
+          <%= f.text_field :data_source_uri, label: 'Data Source URI', placeholder: 'http://...', value: "http://opendata.adelaidecitycouncil.com/street_trees/street%20trees-point.kmz" %>
+          <small class="pull-left">(csv w/coordinates, kml or shp as WSG84). Not sure? <a href="http://opendata.adelaidecitycouncil.com/street_trees/street%20trees-point.kmz">Copy this link</a></small>
+        </div>
       </div>
       <div class="control-group all-33" style='clear:left;'>
         <div class="control">
@@ -70,7 +69,7 @@
   <div class="all-80 push-center highlight">
     <h4>Modify Geographic Boundary</h4>
 
-    <%= simple_form_for(@project) do |f| %>
+    <%= simple_form_for(@project, html: { class: "ink-form" }) do |f| %>
       <p>
         <%= f.input :administrative_boundry_id, collection: AdministrativeBoundry.all.order(:name) %>
         <small>(csv w/coordinates, kml or shp as WSG84)</small>
