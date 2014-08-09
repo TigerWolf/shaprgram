@@ -1,4 +1,4 @@
-<%= link_to_if(@items.present?, "Export Data",export_project_url(@items.first.project), :class=>"ink-button blue") %>
+<%= link_to_if(@items.present?, "Export Data",export_project_url(@items.first.try(:project)), :class=>"ink-button blue") %>
 <table class="ink-table items alternating hover " id="items-table">
   <thead>
       <th>Name</th>
